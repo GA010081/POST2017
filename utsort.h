@@ -3,8 +3,6 @@
 #include <list>
 #include <algorithm>
 #include <cmath>
-using namespace std;
-
 template <class Type>
 void swap (Type &a, Type &b){
     Type temp;
@@ -19,7 +17,7 @@ public:
     IncreasingByDistanceToN(int i):n(i){}
     int n;
     bool operator() (int i, int j){
-        return abs(i - n) < abs(j - n);
+        return std::abs(i - n) < std::abs(j - n);
     }
 };
 
