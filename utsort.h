@@ -3,7 +3,8 @@
 #include <list>
 #include <algorithm>
 #include <cmath>
-#include <cstdlib>
+using namespace std;
+
 template <class Type>
 void swap (Type &a, Type &b){
     Type temp;
