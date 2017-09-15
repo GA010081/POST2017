@@ -1,10 +1,10 @@
 all: exp
 
-exp: main.o utsort.o
+exp: main.o 
 ifeq (${OS}, Windows_NT)
-	g++ -o exp main.o utsort.o -lgtest
+	g++ -o exp main.o  -lgtest
 else
-	g++ -o exp main.o utsort.o -lgtest -lpthread
+	g++ -o exp main.o  -lgtest -lpthread
 endif
 	
 main.o: main.cpp utsort.h
