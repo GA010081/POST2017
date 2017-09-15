@@ -9,9 +9,6 @@ endif
 	
 main.o: main.cpp utsort.h
 	g++ -std=gnu++0x -c main.cpp
-utsort.o:utsort.cpp
-	g++ -std=gnu++0x -c utsort.cpp
-
 
 clean:	
 ifeq (${OS}, Windows_NT)
