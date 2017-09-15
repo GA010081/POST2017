@@ -1,7 +1,6 @@
 #ifndef UTSORT_H_INCLUDED
 #define UTSORT_H_INCLUDED
 #include <list>
-#include <algorithm>
 #include <cmath>
 template <class Type>
 void swap (Type &a, Type &b){
