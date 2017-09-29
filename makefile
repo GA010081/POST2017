@@ -1,20 +1,18 @@
-INC_DIR = include
+all: hw2
 
-all: hw1
-
-hw1: main.o  
+hw2: Term.o  
 ifeq (${OS}, Windows_NT)
-	g++ -o hw1 main.o  -lgtest
+	g++ -o hw2 Term.o  -lgtest
 else
-	g++ -o hw1 main.o  -lgtest -lpthread
+	g++ -o hw2 Term.o  -lgtest -lpthread
 endif
 	
-main.o: main.cpp utSort.h
-	g++ -std=gnu++0x -c main.cpp
+Term.o: Term.cpp utTerm.h
+	g++ -std=gnu++0x -c Term.cpp
 
 clean:	
 ifeq (${OS}, Windows_NT)
 	del *.o *.exe
 else
-	rm -f *.o hw1
+	rm -f *.o hw2
 endif
