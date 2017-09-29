@@ -1,9 +1,13 @@
 #ifndef UTTERM_H
 #define UTTERM_H
 
+#include "Term.h"
+#include "Atom.h"
+
 //test Number.value()
 TEST (Number,ctor) {
-
+    Number Num1(1);
+    ASSERT_EQ(1,Num1.value());
 }
 //test Number.symbol()
 TEST (Number, symbol) {
@@ -12,17 +16,22 @@ TEST (Number, symbol) {
 //?- 25=25.
 //true.
 TEST (Number, matchSuccess) {
-
+    Number  Num25(25);
+    ASSERT_TRUE(Num25=Num25);
 }
 //?- 25=0.
 //false.
 TEST (Number, matchFailureDiffValue) {
-
+    Number  Num25(25);
+    Number  Num0(0);
+    ASSERT_FALSE(Num25= Num0);
 }
 //?- 25=tom.
 //false.
 TEST (Number, matchFailureDiffConstant) {
-
+    Number  Num25(25);
+    Atom    Tom("tom");
+    ASSERT_FALSE(Num25 = Tom);
 }
 //?- 25=X.
 //true.
