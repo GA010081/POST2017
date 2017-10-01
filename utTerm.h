@@ -1,9 +1,9 @@
 #ifndef UTTERM_H
 #define UTTERM_H
 
-#include "Number.h"
-#include "Atom.h"
-#include "Variable.h"
+#include "number.h"
+#include "atom.h"
+#include "variable.h"
 
 //test Number.value()
 TEST (Number,ctor) {
@@ -39,34 +39,50 @@ TEST (Number, matchFailureDiffConstant) {
 TEST (Number, matchSuccessToVar) {
     Variable X("X");
     Number Num25(25);
-    ASSERT_TRUE(Num25 = X);
+    Number Num26(26);
+    ASSERT_TRUE(Num25 = &X);
+    ASSERT_FALSE(Num26 = &X);
+    ASSERT_TRUE(Num25 = &X);
+
 }
 
-//?- tom=25.
-//false.
+// ?- tom=25.
+// false.
 TEST (Atom, matchFailureDiffConstant) {
 
     Atom Tom("tom");
     Number Num25(25);
-    ASSERT_FALSE(Tom = Num25);
+    ASSERT_FALSE(Tom = &Num25);
 
 }
 
 // ?- tom = X.
 // X = tom.
 TEST (Atom, matchSuccessToVar) {
+    Atom Tom("tom");
+    Variable X("X");
+    ASSERT_TRUE(Tom = &X);
 
 }
 
 // ?- X=tom, tom=X.
 // X = tom.
 TEST (Atom, matchSuccessToVarInstantedToDiffConstant) {
-
+    Atom Tom("tom");
+    Variable X("X");
+    // ASSERT_TRUE(X = &Tom);
+    // ASSERT_TRUE(X = Tom);
 }
 
 // ?- X=jerry, tom=X.
 // false.
 TEST (Atom, matchFailureToVarInstantedToDiffConstant) {
+    Atom Tom("tom");
+    Atom Jerry("jerry");
+    Variable X("X");
+    ASSERT_TRUE(Tom = &X);
+    ASSERT_FALSE(Jerry = &X);
+    ASSERT_TRUE(Tom = &X);
 
 }
 

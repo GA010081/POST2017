@@ -1,8 +1,9 @@
 #ifndef ATOM_H
 #define ATOM_H
 
-#include "Number.h"
-#include "Variable.h"
+class Number;
+#include "number.h"
+#include "variable.h"
 #include <string>
 
 using std::string;
@@ -13,7 +14,11 @@ public:
         string value(){
             return _Symbol;
         }
-        bool operator =(Number s){return false;}
+        bool operator =(Number *s){return false;}
+
+        bool operator =(Variable *s){
+            return s->Variable_Matchable_String(this->_Symbol);
+          }
 private:
     string const _Symbol;
 };
