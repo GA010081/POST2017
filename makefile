@@ -7,7 +7,7 @@ else
 	g++ -o hw2 Term.o  -lgtest -lpthread
 endif
 	
-Term.o: Term.cpp utTerm.h
+Term.o: Term.cpp utTerm.h 
 	g++ -std=gnu++0x -c Term.cpp
 
 clean:	

@@ -1,8 +1,9 @@
 #ifndef UTTERM_H
 #define UTTERM_H
 
-#include "Term.h"
+#include "Number.h"
 #include "Atom.h"
+#include "Variable.h"
 
 //test Number.value()
 TEST (Number,ctor) {
@@ -36,12 +37,18 @@ TEST (Number, matchFailureDiffConstant) {
 //?- 25=X.
 //true.
 TEST (Number, matchSuccessToVar) {
-  
+    Variable X("X");
+    Number Num25(25);
+    ASSERT_TRUE(Num25 = X);
 }
 
 //?- tom=25.
 //false.
 TEST (Atom, matchFailureDiffConstant) {
+
+    Atom Tom("tom");
+    Number Num25(25);
+    ASSERT_FALSE(Tom = Num25);
 
 }
 
