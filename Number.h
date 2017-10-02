@@ -1,20 +1,18 @@
 #ifndef NUMBER_H
 #define NUMBER_H
 
-#include "atom.h"
-#include "variable.h"
+class Atom;
+class Variable;
 
 class Number{
 public:
-        Number(double _Symbol):_Symbol(_Symbol){}
-        double value(){return _Symbol;}
-        bool operator =(Number s){return _Symbol == s._Symbol;}
-        bool operator =(Atom s){return false;}
-        bool operator =(Variable *s){
-          return s->Variable_Matchable_Number(*s , this->_Symbol);
-        }
+        Number(double _Symbol);
+        double value();
+        bool match(Number);
+        bool match(Atom );
+        bool match(Variable *);
 private:
-    double const _Symbol;
+    double _Symbol;
 };
 
 
