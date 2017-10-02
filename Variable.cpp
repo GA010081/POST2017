@@ -6,21 +6,15 @@ using std::string;
 Variable::Variable(string s){
     this->_Symbol = s;
 }  
-double Variable::value(){
-    return _ValueN;
-}
 string Variable::valueS(){
-    return _ValueS;
+    return _Value;
 }
-void Variable::setValue(double param){
-    _ValueN = param;
-}
+
 bool Variable::Variable_Matchable_String(string _param){   
-     if((_ValueS.empty() && !Variable_is_assigned)  ||  ((!(_ValueS.compare(_param)))  && Variable_is_assigned ) )   
+     if((_Value.empty())  ||  !(_Value.compare(_param)))    
     {
-         Variable_is_assigned = true;
         _Matchable = true;
-         _ValueS.replace(_ValueS.begin(),_ValueS.end(),_param);
+         _Value.replace(_Value.begin(),_Value.end(),_param);
     }
     else
         _Matchable = false;

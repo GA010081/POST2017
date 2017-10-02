@@ -12,8 +12,6 @@ public:
     Variable(string s);
     double value();
     string valueS();
-    void setValue(double param);
-    // bool Variable_Matchable_Number(double s ,double _param);
     bool Variable_Matchable_String(string _param);
     bool match(Atom);
     bool match(Number);
@@ -21,10 +19,7 @@ public:
  
 private:
     string  _Symbol;
-    double _ValueN = 0.1;
-    string _ValueS ="";
+    string _Value ="";
     bool _Matchable = true;
-    bool Variable_is_assigned = false;
-
 };
 #endif

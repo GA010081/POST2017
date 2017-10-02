@@ -16,7 +16,7 @@ TEST (Number,ctor) {
 //test Number.symbol()
 TEST (Number, symbol) {
     Number Num1(1);
-    std::cout<<"-------"<<Num1.symbol();
+
 }
 //?- 25=25.
 //true.
