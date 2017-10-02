@@ -15,19 +15,6 @@ string Variable::valueS(){
 void Variable::setValue(double param){
     _ValueN = param;
 }
-bool Variable::Variable_Matchable_Number(double s ,double _param){   
-
-    if((s == 0.1 && !Variable_is_assigned) || (s == _param && Variable_is_assigned))    
-    {   
-        Variable_is_assigned = true;
-        _Matchable = true;
-        this->setValue(_param);
-    }
-    else
-        _Matchable = false;
-        
-    return _Matchable;
-    }
 bool Variable::Variable_Matchable_String(string _param){   
      if((_ValueS.empty() && !Variable_is_assigned)  ||  ((!(_ValueS.compare(_param)))  && Variable_is_assigned ) )   
     {
@@ -44,5 +31,5 @@ bool Variable::match(Atom s){
        return this->Variable_Matchable_String(s.value());
 }
 bool Variable::match(Number s){
-       return Variable::Variable_Matchable_Number(this->value(),s.value());
+       return this->Variable_Matchable_String(s.symbol());
 }

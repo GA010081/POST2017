@@ -13,7 +13,7 @@ public:
     double value();
     string valueS();
     void setValue(double param);
-    bool Variable_Matchable_Number(double s ,double _param);
+    // bool Variable_Matchable_Number(double s ,double _param);
     bool Variable_Matchable_String(string _param);
     bool match(Atom);
     bool match(Number);

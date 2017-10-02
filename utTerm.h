@@ -4,6 +4,9 @@
 #include "number.h"
 #include "atom.h"
 #include "variable.h"
+#include <string>
+using std::string;
+
 
 //test Number.value()
 TEST (Number,ctor) {
@@ -13,7 +16,7 @@ TEST (Number,ctor) {
 //test Number.symbol()
 TEST (Number, symbol) {
     Number Num1(1);
-    ASSERT_EQ(1,Num1.value());
+    std::cout<<"-------"<<Num1.symbol();
 }
 //?- 25=25.
 //true.
