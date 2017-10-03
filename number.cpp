@@ -2,11 +2,11 @@
 #include "atom.h"
 #include "number.h"
 
-Number::Number(double _symbol){
+Number::Number(int _symbol){
     this->_Symbol = _symbol;
 }
-double Number::value(){
-    return _Symbol;
+string Number::value(){
+    return (std::to_string(_Symbol));
 }
 string Number::symbol(){
     return (std::to_string(_Symbol));

@@ -8,14 +8,14 @@ using std::string;
 
 class Number{
 public:
-        Number(double _Symbol);
-        double value();
+        Number(int _Symbol);
+        string value();
         string symbol();
         bool match(Number);
         bool match(Atom );
         bool match(Variable *);
 private:
-    double _Symbol;
+    int _Symbol;
 };
 
 

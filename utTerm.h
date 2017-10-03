@@ -11,13 +11,12 @@ using std::string;
 //test Number.value()
 TEST (Number,ctor) {
     Number Num1(1);
-    ASSERT_EQ(1,Num1.value());
+    ASSERT_EQ("1",Num1.value());
 }
 //test Number.symbol()
 TEST (Number, symbol) {
     Number Num1(1);
-    double one = 1;
-    ASSERT_EQ(std::to_string(one),Num1.symbol());
+    ASSERT_EQ("1",Num1.symbol());
     
 }
 //?- 25=25.
