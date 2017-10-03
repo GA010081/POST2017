@@ -10,8 +10,7 @@ using std::string;
 class Variable{
 public:
     Variable(string s);
-    double value();
-    string valueS();
+    string value();
     bool Variable_Matchable_String(string _param);
     bool match(Atom);
     bool match(Number);

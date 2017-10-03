@@ -6,7 +6,7 @@ using std::string;
 Variable::Variable(string s){
     this->_Symbol = s;
 }  
-string Variable::valueS(){
+string Variable::value(){
     return _Value;
 }
 
