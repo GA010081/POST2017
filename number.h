@@ -13,7 +13,7 @@ public:
         string symbol();
         bool match(Number);
         bool match(Atom );
-        bool match(Variable *);
+        bool match(Variable &);
 private:
     int _Symbol;
 };

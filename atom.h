@@ -11,8 +11,8 @@ class Atom{
 public:
         Atom(string _Symbol);
         string value();
-        bool match(Number *);
-        bool match(Variable *);
+        bool match(Number &);
+        bool match(Variable &);
 private:
     string _Symbol;
 };

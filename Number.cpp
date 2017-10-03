@@ -17,6 +17,6 @@ bool Number::match(Number s){
 bool Number::match(Atom s){
     return false;
 }
-bool Number::match(Variable *s){
-    return s->Variable_Matchable_String((this->symbol()));
+bool Number::match(Variable &s){
+    return s.Variable_Matchable_String((this->symbol()));
 }

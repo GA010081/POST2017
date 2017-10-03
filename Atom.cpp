@@ -10,9 +10,9 @@ Atom::Atom(string _Symbol){
 string Atom::value(){
     return _Symbol;
 }
-bool Atom::match(Number *s){
+bool Atom::match(Number &s){
     return false;
 }
-bool Atom::match(Variable *s){
-    return s->Variable_Matchable_String(this->_Symbol);
+bool Atom::match(Variable &s){
+    return s.Variable_Matchable_String(this->_Symbol);
 }

@@ -45,9 +45,9 @@ TEST (Number, matchSuccessToVar) {
     Variable X("X");
     Number Num25(25);
     Number Num26(26);
-    ASSERT_TRUE(Num25.match(&X));
-    ASSERT_FALSE(Num26.match(&X));
-    ASSERT_TRUE(Num25.match(&X));
+    ASSERT_TRUE(Num25.match(X));
+    ASSERT_FALSE(Num26.match(X));
+    ASSERT_TRUE(Num25.match(X));
 
 }
 
@@ -57,7 +57,7 @@ TEST (Atom, matchFailureDiffConstant) {
 
     Atom Tom("tom");
     Number Num25(25);
-    ASSERT_FALSE(Tom.match(&Num25));
+    ASSERT_FALSE(Tom.match(Num25));
 
 }
 
@@ -66,7 +66,7 @@ TEST (Atom, matchFailureDiffConstant) {
 TEST (Atom, matchSuccessToVar) {
     Atom Tom("tom");
     Variable X("X");
-    ASSERT_TRUE(Tom.match(&X));
+    ASSERT_TRUE(Tom.match(X));
 
 }
 
@@ -76,7 +76,7 @@ TEST (Atom, matchSuccessToVarInstantedToDiffConstant) {
     Atom Jerry("jerry");
     Atom Tom("tom");
     Variable X("X");
-    ASSERT_TRUE(Tom.match(&X));
+    ASSERT_TRUE(Tom.match(X));
     ASSERT_FALSE(X.match(Jerry));
     ASSERT_TRUE(X.match(Tom));
     
@@ -88,9 +88,9 @@ TEST (Atom, matchFailureToVarInstantedToDiffConstant) {
     Atom Tom("tom");
     Atom Jerry("jerry");
     Variable X("X");
-    ASSERT_TRUE(Tom.match(&X));
-    ASSERT_FALSE(Jerry.match(&X));
-    ASSERT_TRUE(Tom.match(&X));
+    ASSERT_TRUE(Tom.match(X));
+    ASSERT_FALSE(Jerry.match(X));
+    ASSERT_TRUE(Tom.match(X));
 
 }
 
@@ -131,8 +131,8 @@ TEST (Var, matchSuccessToAtomThenFailureToNumber2) {
     Number Num25(25);
     Atom Tom("tom");
     Variable X("X");
-    ASSERT_TRUE(Tom.match(&X));
-    ASSERT_FALSE(Num25.match(&X));
+    ASSERT_TRUE(Tom.match(X));
+    ASSERT_FALSE(Num25.match(X));
 }
 //?- X=tom, X=tom.
 //true.
@@ -141,7 +141,7 @@ TEST(Var, reAssignTheSameAtom){
     Variable X("X");
     ASSERT_TRUE(X.match(Tom));
     ASSERT_TRUE(X.match(Tom));
-    ASSERT_TRUE(Tom.match(&X));
-    ASSERT_TRUE(Tom.match(&X));
+    ASSERT_TRUE(Tom.match(X));
+    ASSERT_TRUE(Tom.match(X));
 }
 #endif
