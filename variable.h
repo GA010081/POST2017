@@ -14,7 +14,7 @@ public:
     bool Variable_Matchable_String(string _param);
     bool match(Atom);
     bool match(Number);
-   
+    bool match(Variable &);
  
 private:
     string  _Symbol;

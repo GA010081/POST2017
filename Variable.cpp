@@ -27,3 +27,6 @@ bool Variable::match(Atom s){
 bool Variable::match(Number s){
        return this->Variable_Matchable_String(s.symbol());
 }
+bool Variable::match(Variable &s){
+    return this->Variable_Matchable_String(s.symbol());
+}
