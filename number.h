@@ -4,9 +4,10 @@
 class Atom;
 class Variable;
 #include <string>
+#include "term.h"
 using std::string;
 
-class Number{
+class Number:public Term{
 public:
         Number(int _Symbol);
         string value();

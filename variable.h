@@ -5,9 +5,10 @@ class Atom;
 class Number;
 
 #include<string>
+#include "term.h"
 using std::string;
 
-class Variable{
+class Variable:public Term{
 public:
     Variable(string s);
     string value();
