@@ -1,9 +1,9 @@
 #ifndef STRUCT_H
 #define STRUCT_H
 
-#include"term.h"
 #include<vector>
 #include<string>
+#include"atom.h"
 
 using std::string; 
 
@@ -14,9 +14,13 @@ public:
         _Name=Name;
         _v=v;
     }
-    Term *index(int a)
+    Term* index(int a)
     {
         return _v[a];
+    }
+    string value()
+    {
+        return  _Name;
     }
 
 private:

@@ -6,8 +6,7 @@ using std::string;
 
 class Term{
 public:
-    string symbol(){}
-    bool match(Term){}
-    string value(){}
+    bool match(Term){};
+    virtual string value(){};
 };
 #endif

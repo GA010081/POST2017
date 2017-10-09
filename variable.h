@@ -4,8 +4,8 @@
 class Atom;
 class Number;
 
+#include"term.h"
 #include<string>
-#include "term.h"
 using std::string;
 
 class Variable:public Term{
