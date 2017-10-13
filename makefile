@@ -11,7 +11,7 @@ Number.o: Number.cpp
 	g++ -std=gnu++0x -c Number.cpp
 Atom.o: Atom.cpp
 	g++ -std=gnu++0x -c Atom.cpp
-Struct.o: Struct.cpp utStruct.h
+Struct.o: Struct.cpp utStruct.h utVariable.h
 	g++ -std=gnu++0x -c Struct.cpp
 clean:
 ifeq (${OS}, Windows_NT)
