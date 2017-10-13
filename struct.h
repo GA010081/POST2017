@@ -5,26 +5,40 @@
 #include<string>
 #include"atom.h"
 
-using std::string; 
+using std::string;
 
 class Struct:public Term{
 public:
-    Struct(string Name,std::vector<Term*> v)
-    {   
-        _Name=Name;
-        _v=v;
-    }
-    Term* index(int a)
+    Struct(Atom const name,std::vector<Term*> v):_Name(name),_v(v){}
+    Term* args(int index)
     {
-        return _v[a];
+        return _v[index];
     }
-    string value()
+    Atom const &name()
     {
         return  _Name;
     }
-
+    string symbol()const{
+        string ret = _Name.symbol() +"(" + _v[0]->symbol();
+        for(int i= 1 ; i<_v.size();i++)
+        ret += ", " + _v[i]->symbol();
+        ret += ")";
+        return ret;
+    }
+    bool match(Term &term){
+        Struct *ps = dynamic_cast<Struct *>(&term);
+        if(ps)
+        {
+            for(int i =0;i<_v.size();i++){
+                if(!_Name.match(ps->_Name) || _v.size()!=ps->_v.size()||_v[i]->symbol() != ps->_v[i]->symbol())
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
 private:
-    string _Name;
+    Atom _Name;
     std::vector<Term*> _v;
 };
 #endif

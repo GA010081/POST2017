@@ -9,12 +9,8 @@ using std::string;
 
 class Number:public Term{
 public:
-        Number(int _Symbol);
-        string value();
-        string symbol();
-        bool match(Number);
-        bool match(Atom );
-        bool match(Variable &);
+        Number(double _Symbol);
+        string symbol()const;
 private:
     int _Symbol;
 };

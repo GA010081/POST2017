@@ -6,7 +6,13 @@ using std::string;
 
 class Term{
 public:
-    bool match(Term){};
-    virtual string value(){};
+    virtual string  symbol()const=0;
+    virtual string value()const{
+        return symbol();
+    }
+    virtual bool match(Term &term){
+        return term.symbol()==symbol();
+    }
+
 };
 #endif

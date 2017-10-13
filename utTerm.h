@@ -1,147 +1,61 @@
-#ifndef UTTERM_H
-#define UTTERM_H
+#include"term.h"
+#include"atom.h"
+#include"number.h"
+#include"struct.h"
 
-#include "number.h"
-#include "atom.h"
-#include "variable.h"
-#include <string>
-using std::string;
-
-
-//test Number.value()
-TEST (Number,ctor) {
-    Number Num1(1);
-    ASSERT_EQ("1",Num1.value());
+TEST(Atom,symbol)
+{   
+    Atom tom("tom");
+    ASSERT_EQ("tom",tom.symbol());
 }
-//test Number.symbol()
-TEST (Number, symbol) {
-    Number Num1(1);
-    ASSERT_EQ("1",Num1.symbol());
-    
+TEST(Atom,match_Num)
+{   
+    Atom tom("tom");
+    Number Num25(25);
+    ASSERT_FALSE(tom.match(Num25));
 }
-//?- 25=25.
-//true.
-TEST (Number, matchSuccess) {
-    Number  Num25(25);
-    ASSERT_TRUE(Num25.match(Num25));
+TEST(Atom,match_DiffConst)
+{   
+    Atom tom("tom");
+    Atom jerry("jerry");
+    ASSERT_FALSE(tom.match(jerry));
 }
-//?- 25=0.
-//false.
-TEST (Number, matchFailureDiffValue) {
-    Number  Num25(25);
-    Number  Num0(0);
-    ASSERT_FALSE(Num25.match(Num0));
+TEST(Atom,match_SameConst)
+{   
+    Atom tom("tom");
+    Atom tom2("tom");
+    ASSERT_TRUE(tom.match(tom));
+    ASSERT_TRUE(tom.match(tom2));
 }
-//?- 25=tom.
-//false.
-TEST (Number, matchFailureDiffConstant) {
-    Number  Num25(25);
-    Atom    Tom("tom");
-    ASSERT_FALSE(Num25.match(Tom));
+TEST(Number,symbol)
+{   
+    Number Num25(25);
+    ASSERT_EQ("25",Num25.symbol());
 }
-//?- 25=X.
-//true.
-TEST (Number, matchSuccessToVar) {
-    Variable X("X");
+TEST(Number,match_Atom)
+{   
+    Atom tom("tom");
+    Number Num25(25);
+    ASSERT_FALSE(Num25.match(tom));
+}
+TEST(Number,match_DiffNum)
+{   
     Number Num25(25);
     Number Num26(26);
-    ASSERT_TRUE(Num25.match(X));
-    ASSERT_FALSE(Num26.match(X));
-    ASSERT_TRUE(Num25.match(X));
-
+    ASSERT_FALSE(Num25.match(Num26));
 }
-
-// ?- tom=25.
-// false.
-TEST (Atom, matchFailureDiffConstant) {
-
-    Atom Tom("tom");
+TEST(Number,match_SameNum)
+{   
     Number Num25(25);
-    ASSERT_FALSE(Tom.match(Num25));
-
+    Number Num25_(25);
+    ASSERT_TRUE(Num25.match(Num25));
+    ASSERT_TRUE(Num25.match(Num25_));
 }
-
-// ?- tom = X.
-// X = tom.
-TEST (Atom, matchSuccessToVar) {
-    Atom Tom("tom");
-    Variable X("X");
-    ASSERT_TRUE(Tom.match(X));
-
+TEST(Struct,name)
+{   
+    Atom tom("tom");
+    Atom jerry("jerry");
+    std::vector<Term*> v = {&tom,&jerry};
+    Struct hobby(Atom("hobby"),v);
+    ASSERT_EQ("hobby",hobby.name().symbol());
 }
-
-// ?- X=tom, tom=X.
-// X = tom.
-TEST (Atom, matchSuccessToVarInstantedToDiffConstant) {
-    Atom Jerry("jerry");
-    Atom Tom("tom");
-    Variable X("X");
-    ASSERT_TRUE(Tom.match(X));
-    ASSERT_FALSE(X.match(Jerry));
-    ASSERT_TRUE(X.match(Tom));
-    
-}
-
-// ?- X=jerry, tom=X.
-// false.
-TEST (Atom, matchFailureToVarInstantedToDiffConstant) {
-    Atom Tom("tom");
-    Atom Jerry("jerry");
-    Variable X("X");
-    ASSERT_TRUE(Tom.match(X));
-    ASSERT_FALSE(Jerry.match(X));
-    ASSERT_TRUE(Tom.match(X));
-
-}
-
-// ?- X = 5.
-// X = 5.
-TEST (Var, matchSuccessToNumber) {
-    Variable X("X");
-    Number Num5(5);
-    ASSERT_TRUE(X.match(Num5));
-}
-
-// ?- X=25, X= 100.
-// false.
-TEST (Var, matchFailureToTwoDiffNumbers) {
-    Number Num25(25);
-    Number Num100(100);
-    Variable X("X");
-    ASSERT_TRUE(X.match(Num25));
-    ASSERT_FALSE(X.match(Num100));
-    ASSERT_TRUE(X.match(Num25));
-
-
-}
-
-// ?- X=tom, X= 25.
-// false.
-TEST (Var, matchSuccessToAtomThenFailureToNumber) {
-    Number Num25(25);
-    Atom Tom("tom");
-    Variable X("X");
-    ASSERT_TRUE(X.match(Tom));
-    ASSERT_FALSE(X.match(Num25));
-
-}
-//?- tom=X, 25=X.
-//false.
-TEST (Var, matchSuccessToAtomThenFailureToNumber2) {
-    Number Num25(25);
-    Atom Tom("tom");
-    Variable X("X");
-    ASSERT_TRUE(Tom.match(X));
-    ASSERT_FALSE(Num25.match(X));
-}
-//?- X=tom, X=tom.
-//true.
-TEST(Var, reAssignTheSameAtom){
-    Atom Tom("tom");
-    Variable X("X");
-    ASSERT_TRUE(X.match(Tom));
-    ASSERT_TRUE(X.match(Tom));
-    ASSERT_TRUE(Tom.match(X));
-    ASSERT_TRUE(Tom.match(X));
-}
-#endif
