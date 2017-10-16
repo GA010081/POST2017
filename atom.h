@@ -10,6 +10,7 @@ class Atom:public Term{
 public:
         Atom(string _Symbol);
         string symbol()const;
+        bool match(Term &term);
 private:
     string _Symbol;
 };

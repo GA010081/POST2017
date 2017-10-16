@@ -47,9 +47,9 @@ class Variable:public Term{
 
         return false;
     }
-     
+      string *_value;
   private:
-   string *_value;
+  
     string y;
 
 };

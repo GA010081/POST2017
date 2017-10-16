@@ -9,6 +9,7 @@ class Number:public Term{
 public:
         Number(double _Symbol);
         string symbol()const;
+        bool match(Term &term);
 private:
     double _Symbol;
 };

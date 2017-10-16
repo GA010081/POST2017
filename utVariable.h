@@ -146,4 +146,6 @@ TEST (Variable, Struct2) {
   EXPECT_EQ("s(teddy)",Y.value());
 }
 
+
+
 #endif
