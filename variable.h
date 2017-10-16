@@ -29,11 +29,14 @@ class Variable:public Term{
        
       if(65<=int(ps->symbol()[0]) && int(ps->symbol()[0])<=90){
         if((65>int(ps3->value()[0]) || int(ps->value()[0]) >90) && (65<=int((*_value)[0]) && int((*_value)[0])<=90))
-        _value = ps3->_value;
+        {_value = ps3->_value;  return true;}
         else if((65>int(ps3->value()[0]) || int(ps->value()[0]) >90) && (65>int((*_value)[0]) || int((*_value)[0])>90))
         return false;
         else 
+        {
          ps3->setMemory(*_value);
+          return true;
+        }
       }
       else{
         if(ps && (65<=int(value()[0]) && int(value()[0])<=90) || *_value ==ps->symbol())
