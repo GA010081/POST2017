@@ -138,22 +138,16 @@ TEST (Variable, Struct2) {
   Variable X("X");
   Variable Y("Y");
   Atom teddy("teddy");
-  X.match(teddy);
   std::vector<Term *> v = {&X};
   Struct s(Atom("s"), v);
   Y.match(s);
+  X.match(teddy);
+  std::cout<<X.value()<<std::endl;
+  std::cout<<Y.value()<<std::endl;
   EXPECT_EQ("Y",Y.symbol());
   EXPECT_EQ("s(teddy)",Y.value());
 }
-TEST (Atom ,  Match_X) {
-  Variable X("X");
-  Variable Y("Y");
-  Number pi(3.14);
-  Y.match(X);
-  // X.match(pi);
-  std::cout<<X.value();
-  std::cout<<Y.value();
-}
+
 
 
 #endif
