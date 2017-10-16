@@ -93,8 +93,8 @@ TEST (Variable, num1_to_varZ_to_varY_to_varX) {
   Y.match(Z);
   Z.match(num1);
   ASSERT_EQ("1", Y.value());
-  ASSERT_EQ("1", X.value());
-  ASSERT_EQ("1", Z.value());
+  EXPECT_EQ("1", X.value());
+  EXPECT_EQ("1", Z.value());
 }
 
 // ?- X=Y, X=Z, Z=1
@@ -145,7 +145,15 @@ TEST (Variable, Struct2) {
   EXPECT_EQ("Y",Y.symbol());
   EXPECT_EQ("s(teddy)",Y.value());
 }
-
+TEST (Atom ,  Match_X) {
+  Variable X("X");
+  Variable Y("Y");
+  Number pi(3.14);
+  Y.match(X);
+  // X.match(pi);
+  std::cout<<X.value();
+  std::cout<<Y.value();
+}
 
 
 #endif
