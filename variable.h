@@ -34,8 +34,9 @@ class Variable:public Term{
         return false;
         else if((65<=int(ps3->value()[0]) && int(ps->value()[0]) <=90) && (65<=int((*_value)[0]) && int((*_value)[0])<=90))
         {
-        *ps3->_value = *_value ; 
+       *_value = *ps3->_value ; 
         ps3->setMemory(*_value); 
+        
         return true;
         }
         else 
