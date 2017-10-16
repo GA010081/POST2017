@@ -18,6 +18,14 @@ public:
     {
         return  _Name;
     }
+    string value(){
+        string ret = _Name.symbol() +"(" + _v[0]->value();
+        for(int i= 1 ; i<_v.size();i++)
+        ret += ", " + _v[i]->value();
+        ret += ")";
+        return ret;
+
+    }
     string symbol()const{
         string ret = _Name.symbol() +"(" + _v[0]->symbol();
         for(int i= 1 ; i<_v.size();i++)

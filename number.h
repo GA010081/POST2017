@@ -1,8 +1,6 @@
 #ifndef NUMBER_H
 #define NUMBER_H
 
-class Atom;
-class Variable;
 #include <string>
 #include "term.h"
 using std::string;
@@ -12,7 +10,7 @@ public:
         Number(double _Symbol);
         string symbol()const;
 private:
-    int _Symbol;
+    double _Symbol;
 };
 
 
