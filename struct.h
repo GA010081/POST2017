@@ -9,7 +9,7 @@ using std::string;
 
 class Struct:public Term{
 public:
-    Struct(Atom const name,std::vector<Term*> v):_Name(name),_v(v){}
+    Struct(Atom const name,std::vector<Term*> &v):_Name(name),_v(v){}
     Term* args(int index)
     {
         return _v[index];
@@ -18,7 +18,7 @@ public:
     {
         return  _Name;
     }
-    string value(){
+    string value()const{
         string ret = _Name.symbol() +"(" + _v[0]->value();
         for(int i= 1 ; i<_v.size();i++)
         ret += ", " + _v[i]->value();
@@ -47,6 +47,6 @@ public:
     }
 private:
     Atom _Name;
-    std::vector<Term*> _v;
+    std::vector<Term*> &_v;
 };
 #endif

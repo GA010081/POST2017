@@ -16,7 +16,7 @@ class Variable:public Term{
     string symbol()const{
       return _symbol;
     }
-    string value(){
+    string   value()const{
       return *_value;
     }
     void setMemory(string &s)
@@ -24,10 +24,24 @@ class Variable:public Term{
       _value = &s;
     }
     bool match(Term &term){
+     
         Atom *ps = static_cast<Atom *>(&term);
         Variable *ps3 = static_cast<Variable *>(&term);
-       
       if(65<=int(ps->symbol()[0]) && int(ps->symbol()[0])<=90){
+        int sum = 0;
+        if(v.size()==0)
+        v.push_back(_value);
+        for(int i = 0 ; i<v.size();i++)
+        {
+            if(_value != v[i] && ps3->_value!= v[i])
+            v.push_back(_value);
+            if(_value == v[i] && ps3->_value!=v[i])
+            sum++;
+            if(_value != v[i] && ps3->_value ==v[i])
+            sum++;
+        }
+      if(sum = 1)
+      {
         if((65>int(ps3->value()[0]) || int(ps->value()[0]) >90) && (65<=int((*_value)[0]) && int((*_value)[0])<=90))
         {_value = ps3->_value;  return true;}
         else if((65>int(ps3->value()[0]) || int(ps->value()[0]) >90) && (65>int((*_value)[0]) || int((*_value)[0])>90))
@@ -36,7 +50,6 @@ class Variable:public Term{
         {
        *_value = *ps3->_value ; 
         ps3->setMemory(*_value); 
-        
         return true;
         }
         else 
@@ -44,6 +57,7 @@ class Variable:public Term{
          ps3->setMemory(*_value);
           return true;
         }
+       }
       }
       else{
         if(ps && (65<=int(value()[0]) && int(value()[0])<=90) || *_value ==ps->symbol())
