@@ -1,7 +1,9 @@
 #ifndef TERM_H
 #define TERM_H
+
 #include <string>
 #include <iostream>
+#include <vector>
 
 using std::string;
 
@@ -15,6 +17,6 @@ public:
    
         return term.symbol()==symbol();
     }
-
+   std::vector<string *> v2;
 };
 #endif

@@ -112,6 +112,7 @@ TEST (Variable, num1_to_varZ_to_varX_and_varY_to_varX) {
   ASSERT_EQ("1", Z.value());
 }
 
+
 // Give there is a Struct s contains Variable X
 // And another Variable Y
 // When Y matches Struct s
