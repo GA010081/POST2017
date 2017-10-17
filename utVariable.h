@@ -145,15 +145,6 @@ TEST (Variable, Struct2) {
   EXPECT_EQ("Y",Y.symbol());
   EXPECT_EQ("s(teddy)",Y.value());
 }
-TEST (Atom ,  Match_X) {
-  Variable X("X");
-  Variable Y("Y");
-  Number pi(3.14);
-  Y.match(X);
-  // X.match(pi);
-  std::cout<<X.value();
-  std::cout<<Y.value();
-}
 
 
 #endif
