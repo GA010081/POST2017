@@ -98,5 +98,5 @@ class Variable:public Term{
     string y;
 
 };
-
+//
 #endif
