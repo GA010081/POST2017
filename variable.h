@@ -5,6 +5,7 @@
 #include "term.h"
 #include "atom.h"
 #include "number.h"
+#include "struct.h"
 using std::string;
 
 class Variable:public Term{
@@ -17,7 +18,9 @@ class Variable:public Term{
     string symbol()const{
       return _symbol;
     }
-    string   value()const{
+    string   value(){
+      if(stuct2!=NULL)
+      *_value = stuct2->value();
       return *_value;
     }
     void setMemory(string &s)
@@ -27,6 +30,7 @@ class Variable:public Term{
     bool match(Term &term){
      
         Atom *ps = static_cast<Atom *>(&term);
+        Struct *ps2 = dynamic_cast<Struct *>(&term);
         Variable *ps3 = static_cast<Variable *>(&term);
       if(65<=int(ps->symbol()[0]) && int(ps->symbol()[0])<=90){
    
@@ -78,6 +82,10 @@ class Variable:public Term{
       else{
         if(ps && (65<=int(value()[0]) && int(value()[0])<=90) || *_value ==ps->symbol())
         {
+          if(ps2)
+          {
+          stuct2=ps2;
+          }
           if(v!=NULL)
           {
             std::vector<string *>::iterator it;
@@ -93,6 +101,7 @@ class Variable:public Term{
         return false;
     }
       string *_value;
+      Struct *stuct2=NULL;
   private:
     std::vector<string *> *v=NULL;
     string y;
