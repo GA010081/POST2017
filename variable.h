@@ -6,6 +6,7 @@
 #include "atom.h"
 #include "number.h"
 #include "struct.h"
+#include "list.h"
 using std::string;
 
 class Variable:public Term{
@@ -20,7 +21,10 @@ class Variable:public Term{
     }
     string   value(){
       if(stuct2!=NULL)
-      *_value = stuct2->value();
+      {
+        *_value = stuct2->value();
+        stuct2=NULL;
+      }
       return *_value;
     }
     void setMemory(string &s)
@@ -32,8 +36,8 @@ class Variable:public Term{
         Atom *ps = static_cast<Atom *>(&term);
         Struct *ps2 = dynamic_cast<Struct *>(&term);
         Variable *ps3 = static_cast<Variable *>(&term);
-      if(65<=int(ps->symbol()[0]) && int(ps->symbol()[0])<=90){
-   
+        List *ps4 = dynamic_cast<List *>(&term);
+        if(65<=int(ps->symbol()[0]) && int(ps->symbol()[0])<=90){
         if((65>int(ps3->value()[0]) || int(ps3->value()[0]) >90) && (65<=int((*_value)[0]) && int((*_value)[0])<=90))
         {_value = ps3->_value;  return true;}
         else if((65>int(ps3->value()[0]) || int(ps3->value()[0]) >90) && (65>int((*_value)[0]) || int((*_value)[0])>90))
@@ -77,17 +81,28 @@ class Variable:public Term{
          ps3->setMemory(*_value);
           return true;
         }
-       
       }
       else{
         if(ps && (65<=int(value()[0]) && int(value()[0])<=90) || *_value ==ps->symbol())
         {
           if(ps2)
           {
+          ps4=NULL;
           stuct2=ps2;
+          }
+          if(ps4)
+          {
+          
+            ps2=NULL;
+            std::size_t found= ps4->symbol().find(*_value);
+            if(found!=std::string::npos)
+            return false;
+            *_value = ps4->value();
+            return true;
           }
           if(v!=NULL)
           {
+
             std::vector<string *>::iterator it;
             for (it=v->begin(); it<v->end(); it++)
             **it= ps->value();

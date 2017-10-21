@@ -1,21 +1,32 @@
-all: hw3
+all: hw4 other
 
-hw3: Number.o Atom.o Struct.o
+hw4: Number.o Atom.o MainList.o List.o
 ifeq (${OS}, Windows_NT)
-	g++ -o hw3  Number.o Atom.o Struct.o -lgtest
+	g++ -o hw4 Number.o Atom.o MainList.o List.o -lgtest
 else
-	g++ -o hw3  Number.o Atom.o Struct.o -lgtest -lpthread
+	g++ -o hw4 Number.o Atom.o MainList.o List.o -lgtest -lpthread
 endif
 
+other:Number.o Atom.o Term.o List.o
+ifeq (${OS}, Windows_NT)
+	g++ -o other Number.o Atom.o Term.o List.o -lgtest
+else
+	g++ -o other Number.o Atom.o Term.o List.o -lgtest -lpthread
+endif
+
+Term.o : Term.cpp utTerm.h utVariable.h utStruct.h
+	g++ -std=c++11 -c Term.cpp
 Number.o: Number.cpp
-	g++ -std=gnu++0x -c Number.cpp
+	g++ -std=c++11 -c Number.cpp
 Atom.o: Atom.cpp
-	g++ -std=gnu++0x -c Atom.cpp
-Struct.o: Struct.cpp utStruct.h utVariable.h
-	g++ -std=gnu++0x -c Struct.cpp
+	g++ -std=c++11 -c Atom.cpp
+MainList.o:MainList.cpp utList.h
+	g++ -std=c++11 -c MainList.cpp 
+List.o: List.cpp
+	g++ -std=c++11 -c List.cpp
 clean:
 ifeq (${OS}, Windows_NT)
 	del *.o *.exe
 else
-	rm -f *.o hw3 utStruct
+	rm -f *.o hw4
 endif

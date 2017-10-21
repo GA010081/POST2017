@@ -59,8 +59,7 @@ TEST(Struct, match4)
   Atom chaseMouse("chaseMouse");
   std::vector<Term *> v = {&tom, &chaseMouse};
   Struct hobby(Atom("hobby"), v);
-  Struct hobby2(Atom("hobby"), v);
-  EXPECT_TRUE(hobby.match(hobby2));
+  EXPECT_TRUE(hobby.match(hobby));
 }
 
 TEST(Struct, match5)

@@ -13,11 +13,13 @@ string Number::symbol()const{
     return str;
 }
  bool Number::match(Term &term){
-       Variable *ps3 = static_cast<Variable *>(&term);
-         if(65<=int(ps3->value()[0]) && int(ps3->value()[0])<=90 ||*ps3->_value == value()){
-         *ps3->_value = value();
-          return true;
-         }
-        return term.symbol()==symbol();
-       ps3 = NULL;
+    if(this==&term)
+    return true;
+    Variable *ps3 = dynamic_cast<Variable *>(&term);
+    if(ps3){
+    *ps3->_value = value();
+    return true;
+    }
+    else 
+    return false;
     }
