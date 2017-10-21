@@ -15,15 +15,15 @@ else
 endif
 
 Term.o : Term.cpp utTerm.h utVariable.h utStruct.h
-	g++ -std=c++11 -c Term.cpp
+	g++ -std=gnu++0x -c Term.cpp
 Number.o: Number.cpp
-	g++ -std=c++11 -c Number.cpp
+	g++ -std=gnu++0x -c Number.cpp
 Atom.o: Atom.cpp
-	g++ -std=c++11 -c Atom.cpp
+	g++ -std=gnu++0x -c Atom.cpp
 MainList.o:MainList.cpp utList.h
-	g++ -std=c++11 -c MainList.cpp 
+	g++ -std=gnu++0x -c MainList.cpp 
 List.o: List.cpp
-	g++ -std=c++11 -c List.cpp
+	g++ -std=gnu++0x -c List.cpp
 clean:
 ifeq (${OS}, Windows_NT)
 	del *.o *.exe
