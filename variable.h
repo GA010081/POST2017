@@ -20,11 +20,11 @@ class Variable:public Term{
       return _symbol;
     }
     string   value(){
-      if(list!=NULL)
-      {
-        *_value = list->value();
-        list=NULL;
-      }
+      // if(list!=NULL)
+      // {
+      //   *_value = list->value();
+      //   list=NULL;
+      // }
      if(stuct2!=NULL)
       {
         *_value = stuct2->value();
