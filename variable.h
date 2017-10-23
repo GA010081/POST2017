@@ -23,8 +23,8 @@ class Variable:public Term{
       if(list!=NULL)
       {
 
-        if(*_value == list->value())
-         return *_value;
+        // if(*_value == list->value())
+        //  return *_value;
       //   else
       //  {
       //      std::size_t found= list->symbol().find(symbol());
