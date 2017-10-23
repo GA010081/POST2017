@@ -23,7 +23,7 @@ class Variable:public Term{
       if(list!=NULL)
       {
 
-        if(*_value == list->value());
+        std::cout<<list->value()<<std::endl;
       //   else
       //  {
       //      std::size_t found= list->symbol().find(symbol());
