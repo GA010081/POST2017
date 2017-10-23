@@ -60,6 +60,7 @@ TEST(List, matchToAtomShouldFail) {
   std::vector<Term *> v={&num496,&X,&terence_tao};
   List l(v);
   ASSERT_FALSE(tom.match(l));
+  ASSERT_FALSE(l.match(tom));
 
 
 }

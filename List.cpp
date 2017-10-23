@@ -27,18 +27,8 @@ string List::value()
 bool List::match(Term & term){
  
         List *ps = dynamic_cast<List *>(&term);
-        std::size_t found= ps->symbol().find("H|T");
-        std::size_t found2= this->symbol().find("H|T");
         if(ps)
         {
-            if(found!=std::string::npos || found2!=std::string::npos)
-            {   
-                // std::vector<string *>::iterator it;
-                // for (it=v->begin(); it<v->end(); it++)
-                // **it= ps->value();
-                // return false;
-
-            }
             if(_elements.size()!=ps->_elements.size())
             return false;
             for(int i =0;i<_elements.size();i++){
@@ -63,6 +53,7 @@ bool List::match(Term & term){
             }
             return true;
         }
+        else
         return false;
 
     
