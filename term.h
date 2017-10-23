@@ -15,7 +15,7 @@ public:
     }
     virtual bool match(Term &term){
    
-        return term.symbol()==symbol();
+        // return term.symbol()==symbol();
     }
    std::vector<string *> v2;
 };

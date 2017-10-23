@@ -10,9 +10,10 @@ string Atom::symbol()const{
     return _Symbol;
 }
  bool Atom::match(Term &term){
+     Variable *ps3 = dynamic_cast<Variable *>(&term);
      if(this==&term)
      return true;
-     Variable *ps3 = dynamic_cast<Variable *>(&term);
+   
      if(ps3){
      *ps3->_value = value();
      return true;
