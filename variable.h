@@ -25,13 +25,13 @@ class Variable:public Term{
 
         if(*_value == list->value())
          return *_value;
-        else
-       {
-           std::size_t found= list->symbol().find(symbol());
-          if(found!=std::string::npos);
-          else
-          *_value = list->value();
-       }
+      //   else
+      //  {
+      //      std::size_t found= list->symbol().find(symbol());
+      //     if(found!=std::string::npos);
+      //     else
+      //     *_value = list->value();
+      //  }
         // list=NULL;
       }
      else if(stuct2!=NULL)
