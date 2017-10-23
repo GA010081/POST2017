@@ -75,7 +75,7 @@ TEST(List, matchToNumberShouldFail) {
   std::vector<Term *> v={&num496,&X,&terence_tao};
   List l(v);
   ASSERT_FALSE(num8128.match(l));
-
+   ASSERT_FALSE(l.match(num8128));
 
 }
 
@@ -101,7 +101,8 @@ TEST(List, matchToVarShouldSucceed) {
   Number num496(496);
   std::vector<Term *> v={&num496,&X,&terence_tao};
   List l(v);
-  
+
+  ASSERT_TRUE(l.match(Y));
   ASSERT_TRUE(Y.match(l));
   ASSERT_EQ("[496, X, terence_tao]",Y.value());
 }
@@ -157,6 +158,8 @@ TEST(List, matchToVarToAtominListShouldSucceed) {
   List l(v);
   List l2(v2);
   ASSERT_TRUE(l.match(l2));
+  ASSERT_EQ("[496, 8128, terence_tao]",l.value()); 
+  ASSERT_EQ("[496, 8128, terence_tao]",l2.value());
   ASSERT_EQ("8128",X.value());
 
 }
@@ -173,9 +176,11 @@ TEST(List, matchVarinListToAtomShouldSucceed) {
   std::vector<Term *> v={&num496,&X,&terence_tao};
   std::vector<Term *> v2={&num496,&alan_mathison_turing,&terence_tao};
   List l(v);
+  Y.match(l);
   X.match(alan_mathison_turing);
   List l2(v2);
   ASSERT_EQ("alan_mathison_turing",X.value());
+  ASSERT_EQ("[496, alan_mathison_turing, terence_tao]",Y.value());
   ASSERT_TRUE(l.match(l2));
 }
 

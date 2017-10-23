@@ -1,4 +1,5 @@
 #include "list.h"
+#include "variable.h"
 string List::symbol() const{    
     if(_elements.empty())
     return "[]";
@@ -17,9 +18,9 @@ string List::value()
     return "[]";
     else
     {
-    string ret = "[" + _elements[0]->symbol();
+    string ret = "[" + _elements[0]->value();
     for(int i= 1 ; i<_elements.size();i++)
-    ret += ", " + _elements[i]->symbol();
+    ret += ", " + _elements[i]->value();
     ret += "]";
     return ret;
     }
@@ -27,6 +28,7 @@ string List::value()
 bool List::match(Term & term){
  
         List *ps = dynamic_cast<List *>(&term);
+        Variable *ps2 = dynamic_cast<Variable *>(&term);
         if(ps)
         {
             if(_elements.size()!=ps->_elements.size())
@@ -53,7 +55,14 @@ bool List::match(Term & term){
             }
             return true;
         }
-        else
+        else if(ps2)
+        {
+            std::size_t found= symbol().find(ps2->symbol());
+            if(found!=std::string::npos)
+            return false;
+            *ps2->_value = value();
+            return true;
+        }
         return false;
 
     
