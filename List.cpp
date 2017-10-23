@@ -69,26 +69,22 @@ bool List::match(Term & term){
 
 }
 Term * List::head() const{
-try{
+
     if(_elements.empty())
-    throw "Accessing head in an empty list";
+    throw std::string("Accessing head in an empty list");
     return _elements[0];
-}
-catch(std::exception& e){
- std::cerr <<"Accessing head in an empty list"<< e.what()<< std::endl; 
-}
+
+
 }
 
 List * List::tail() const{
-    try{
+
     if(_elements.empty())
-    throw "Accessing head in an empty list";
+    throw std::string("Accessing tail in an empty list");
     vector<Term *>  const & elements2=_elements;
     List *p=new List(elements2);
     (const_cast<List*>(p))->_elements.erase((const_cast<List*>(p)->_elements.begin()));
     return  p;
-    }
-    catch(std::exception& e){
- std::cerr <<"Accessing head in an empty list"<< e.what()<< std::endl; 
-}
+    
+
 }
