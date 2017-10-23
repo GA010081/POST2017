@@ -92,12 +92,10 @@ class Variable:public Term{
         {
           if(ps2)
           {
-          ps4=NULL;
           stuct2=ps2;
           }
           if(ps4)
           {
-            ps2=NULL;
             list = ps4;
             std::size_t found= ps4->symbol().find(symbol());
             if(found!=std::string::npos)
