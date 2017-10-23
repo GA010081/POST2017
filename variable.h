@@ -29,7 +29,7 @@ class Variable:public Term{
         *_value = list->value();
         // list=NULL;
       }
-     if(stuct2!=NULL)
+     else if(stuct2!=NULL)
       {
         *_value = stuct2->value();
         stuct2=NULL;
