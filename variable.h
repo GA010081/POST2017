@@ -20,11 +20,11 @@ class Variable:public Term{
       return _symbol;
     }
     string   value(){
-      // if(list!=NULL)
-      // {
-      //   *_value = list->value();
-      //   list=NULL;
-      // }
+      if(list!=NULL)
+      {
+        *_value = list->value();
+        list=NULL;
+      }
      if(stuct2!=NULL)
       {
         *_value = stuct2->value();
@@ -98,7 +98,7 @@ class Variable:public Term{
           if(ps4)
           {
             ps2=NULL;
-            // list = ps4;
+            list = ps4;
             std::size_t found= ps4->symbol().find(symbol());
             if(found!=std::string::npos)
             return false;
@@ -122,7 +122,7 @@ class Variable:public Term{
     }
       string *_value;
       Struct *stuct2=NULL;
-      // List *list=NULL;
+      List *list=NULL;
   private:
     std::vector<string *> *v=NULL;
     string y;
