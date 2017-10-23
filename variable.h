@@ -23,15 +23,15 @@ class Variable:public Term{
       if(list!=NULL)
       {
 
-        std::cout<<list->value()<<std::endl;
-      //   else
-      //  {
-      //      std::size_t found= list->symbol().find(symbol());
-      //     if(found!=std::string::npos);
-      //     else
-      //     *_value = list->value();
-      //  }
-        // list=NULL;
+       if( *_value == list->value());
+        else
+       {
+           std::size_t found= list->symbol().find(symbol());
+          if(found!=std::string::npos);
+          else
+          *_value = list->value();
+       }
+        list=NULL;
       }
      if(stuct2!=NULL)
       {
@@ -104,12 +104,15 @@ class Variable:public Term{
           }
           if(ps4)
           {
-            list = ps4;
+           
             std::size_t found= ps4->symbol().find(symbol());
             if(found!=std::string::npos)
             return false;
+            else{
+            list = ps4;
             *_value = ps4->value();
             return true;
+            }
           }
           if(v!=NULL)
           {
