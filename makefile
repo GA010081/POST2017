@@ -13,7 +13,7 @@ mainScanner.o: mainScanner.cpp utScanner.h scanner.h  atom.h struct.h variable.h
 		g++ -std=gnu++0x -c mainScanner.cpp
 
 hw5: mainScanner.o atom.o List.o scanner.h utScanner.h utParser.h parser.h 
-	g++ -o hw5 mainScanner.o atom.o List.o -lgtest
+	g++ -o hw5 mainScanner.o atom.o List.o -lgtest -lpthread
 
 clean:
 	rm -f *.o madRace utAtom utVariable utScanner hw5

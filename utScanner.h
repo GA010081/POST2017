@@ -2,6 +2,7 @@
 #define UTSCANNER_H
 
 #include "scanner.h"
+#include "term.h"
 
 class ScannerTest : public ::testing::Test {
 protected:
