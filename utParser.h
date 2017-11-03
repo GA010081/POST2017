@@ -179,6 +179,7 @@ TEST_F(ParserTest, parseList) {
    Scanner scanner("   [1, 2]");
   Parser parser(scanner);
  ASSERT_EQ("[1, 2]", parser.createTerm()->symbol());
+
 }
 
 // Given there is string: "[1,2)" in scanner.
@@ -188,9 +189,10 @@ TEST_F(ParserTest, illegal1) {
   try{
    Scanner scanner("[1,2)");
   Parser parser(scanner);
+  ASSERT_EQ("[1, 2)", parser.createTerm()->symbol());
   }
-  catch(std::string *caught){
-    ASSERT_EQ("unexpected token", *caught); 
+  catch(std::string caught){
+    ASSERT_EQ("unexpected token", caught); 
   }
 }
 
