@@ -1,25 +1,10 @@
 #include "atom.h"
-#include <string>
 #include "variable.h"
-using std::string;
-Atom::Atom(string _Symbol){
-    this->_Symbol = _Symbol;
-}
+#include <typeinfo>
 
-string Atom::symbol()const{
-    return _Symbol;
+bool Term::match(Term & a){
+  if (typeid(a) ==  typeid(Variable))
+    return a.match(*this);
+  else
+    return symbol() == a.symbol();
 }
- bool Atom::match(Term &term){
-     Variable *ps3 = dynamic_cast<Variable *>(&term);
-     if(this==&term)
-     return true;
-   
-     if(ps3){
-     *ps3->_value = value();
-     return true;
-     }
-     else 
-     return false;
-       
-
-    }

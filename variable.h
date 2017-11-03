@@ -1,141 +1,30 @@
 #ifndef VARIABLE_H
 #define VARIABLE_H
 
-#include<string>
-#include "term.h"
+#include <string>
 #include "atom.h"
-#include "number.h"
-#include "struct.h"
-#include "list.h"
 using std::string;
 
-class Variable:public Term{
-  public:
-    Variable(string s):_symbol(s),y(_symbol){
-    _value=&y;
-
+class Variable : public Term {
+public:
+  Variable(string s):Term(s), _inst(0){}
+  string value() const {
+    if (_inst)
+      return _inst->value();
+    else
+      return Term::value();
+  }
+  bool match( Term & term ){
+    if (this == &term)
+      return true;
+    if(!_inst){
+      _inst = &term ;
+      return true;
     }
-    string _symbol;
-    string symbol()const{
-      return _symbol;
-    }
-    string   value(){
-      if(list!=NULL)
-      {
-
-       if( *_value == list->value());
-        else
-       {
-           std::size_t found= list->symbol().find(symbol());
-          if(found!=std::string::npos);
-          else
-          *_value = list->value();
-       }
-        list=NULL;
-      }
-     if(stuct2!=NULL)
-      {
-        *_value = stuct2->value();
-        stuct2=NULL;
-      }
-      return *_value;
-    }
-    void setMemory(string &s)
-    {
-      _value = &s;
-    }
-    bool match(Term &term){
-     
-        Atom *ps = static_cast<Atom *>(&term);
-        Struct *ps2 = dynamic_cast<Struct *>(&term);
-        Variable *ps3 = static_cast<Variable *>(&term);
-        List *ps4 = dynamic_cast<List *>(&term);
-        if(65<=int(ps->symbol()[0]) && int(ps->symbol()[0])<=90){
-        if((65>int(ps3->value()[0]) || int(ps3->value()[0]) >90) && (65<=int((*_value)[0]) && int((*_value)[0])<=90))
-        {_value = ps3->_value;  return true;}
-        else if((65>int(ps3->value()[0]) || int(ps3->value()[0]) >90) && (65>int((*_value)[0]) || int((*_value)[0])>90))
-        return false;
-        else if((65<=int(ps3->value()[0]) && int(ps3->value()[0]) <=90) && (65<=int((*_value)[0]) && int((*_value)[0])<=90))
-        {
-          if(ps3->v==NULL && v==NULL)
-          {
-           v  = &v2 ;
-           ps3-> v = &v2;
-          } 
-          else if(ps3->v==NULL && v!=NULL)
-          ps3->v = v;
-          else if(ps3->v!=NULL && v==NULL)
-          v = ps3->v ;
-          else
-          {
-            std::vector<string *>::iterator it;         
-            std::vector<string *>::iterator it2;  
-            std::vector<string *>::iterator it3;     
-            it = v->begin();
-            it2 = ps3->v->begin();
-            it3 = ps3->v->end();
-            v->insert(it,it2,it3);
-            ps3->v= NULL;
-          }
-          if(_value == ps3->_value)
-          v2.push_back(_value);
-          else
-          {
-          v2.push_back(_value);
-          v2.push_back(ps3->_value);
-          }
-     
-       *_value = *ps3->_value ; 
-        ps3->setMemory(*_value); 
-        return true;
-        }
-        else 
-        {
-         ps3->setMemory(*_value);
-          return true;
-        }
-      }
-      else{
-        if(ps && (65<=int(value()[0]) && int(value()[0])<=90) || *_value ==ps->symbol())
-        {
-          if(ps2)
-          {
-          stuct2=ps2;
-          }
-          if(ps4)
-          {
-           
-            std::size_t found= ps4->symbol().find(symbol());
-            if(found!=std::string::npos)
-            return false;
-            else{
-            list = ps4;
-            *_value = ps4->value();
-            return true;
-            }
-          }
-          if(v!=NULL)
-          {
-
-            std::vector<string *>::iterator it;
-            for (it=v->begin(); it<v->end(); it++)
-            **it= ps->value();
-            return true;
-          }
-          *_value = ps->value();
-          return true;
-        }
-      }
- 
-        return false;
-    }
-      string *_value;
-      Struct *stuct2=NULL;
-      List *list=NULL;
-  private:
-    std::vector<string *> *v=NULL;
-    string y;
-
+    return _inst->match(term);
+  }
+private:
+  Term * _inst;
 };
-//
+
 #endif

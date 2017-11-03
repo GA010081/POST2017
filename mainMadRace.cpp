@@ -1,6 +1,5 @@
 #include <gtest/gtest.h>
-#include "utVariable.h"
-#include "utStruct.h"
+#include "utMadRace.h"
 
 int main( int argc , char **argv )
 {

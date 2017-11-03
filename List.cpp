@@ -55,14 +55,14 @@ bool List::match(Term & term){
             }
             return true;
         }
-        else if(ps2)
-        {
-            std::size_t found= symbol().find(ps2->symbol());
-            if(found!=std::string::npos)
-            return false;
-            *ps2->_value = value();
-            return true;
-        }
+        // else if(ps2)
+        // {
+        //     std::size_t found= symbol().find(ps2->symbol());
+        //     if(found!=std::string::npos)
+        //     return false;
+        //     *ps2->_value = value();
+        //     return true;
+        // }
         return false;
 
     
