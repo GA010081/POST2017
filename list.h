@@ -3,20 +3,23 @@
 
 #include "atom.h"
 #include <vector>
+#include <string>
+#include <typeinfo>
+#include <iostream>
 using std::vector;
+
+class Variable ;
 
 class List : public Term {
 public:
-  string symbol() const;
-  string value() ;
-  bool match(Term & term);
-
+  string symbol() const ;
+  string value() const ;
+  bool match(Term & term) ;
 public:
-  List (): _elements() {}
-  List (vector<Term *>  const & elements):_elements(elements){}
+  List (): _elements(0) {}
+  List (vector<Term *> const & elements):_elements(elements){}
   Term * head() const;
   List * tail() const;
-
 private:
   vector<Term *> _elements;
 };

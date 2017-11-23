@@ -2,7 +2,6 @@
 #define UTSCANNER_H
 
 #include "scanner.h"
-#include "term.h"
 
 class ScannerTest : public ::testing::Test {
 protected:
@@ -117,6 +116,5 @@ TEST_F(ScannerTest, nextTokenAtomSC) {
   EXPECT_EQ(".*-><&$@\\?", symtable[0].first);
   EXPECT_EQ(ATOMSC, symtable[0].second);
 }
-
 
 #endif

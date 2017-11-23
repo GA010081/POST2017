@@ -21,16 +21,13 @@ public:
     return _name;
   }
   string symbol() const {
-     if(_args.empty())
-      {
-       return _name.symbol() +"()";
-      }
+    if(_args.empty())
+    return  _name.symbol() + "()";
     string ret = _name.symbol() + "(";
     std::vector<Term *>::const_iterator it = _args.begin();
     for (; it != _args.end()-1; ++it)
       ret += (*it)->symbol()+", ";
     ret  += (*it)->symbol()+")";
-
     return ret;
   }
   string value() const {
@@ -41,9 +38,7 @@ public:
     ret  += (*it)->value()+")";
     return ret;
   }
-  int arity(){
-    return _args.size();
-  }
+  int arity() const {return _args.size();}
 private:
   Atom _name;
   std::vector<Term *> _args;

@@ -5,7 +5,6 @@
 
 TEST(Struct, hobby)
 {
-
   Atom tom("tom");
   Atom chaseMouse("chaseMouse");
   std::vector<Term *> v = {&tom, &chaseMouse};

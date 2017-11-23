@@ -1,90 +1,87 @@
-#include "list.h"
+#include "atom.h"
 #include "variable.h"
-string List::symbol() const{    
-    if(_elements.empty())
-    return "[]";
-    else
-    {
-    string ret = "[" + _elements[0]->symbol();
-    for(int i= 1 ; i<_elements.size();i++)
-    ret += ", " + _elements[i]->symbol();
-    ret += "]";
-    return ret;
+#include <typeinfo>
+#include <iostream>
+#include <string>
+#include "list.h"
+using std::vector;
+
+string List::symbol() const{
+    string ret ;
+    if(_elements.size()==0 ){
+      ret = "[]";
     }
-}
-string List::value()
-{
-    if(_elements.empty())
-    return "[]";
-    else
-    {
-    string ret = "[" + _elements[0]->value();
-    for(int i= 1 ; i<_elements.size();i++)
-    ret += ", " + _elements[i]->value();
-    ret += "]";
-    return ret;
+    else{
+      ret  = "[";
+      std::vector<Term *>::const_iterator it = _elements.begin();
+      for( ; it != _elements.end()-1 ; ++it ){
+        ret += (*it)->symbol()+", ";
+      }
+      ret += (*it)->symbol()+"]";
     }
-}
-bool List::match(Term & term){
- 
-        List *ps = dynamic_cast<List *>(&term);
-        Variable *ps2 = dynamic_cast<Variable *>(&term);
-        if(ps)
-        {
-            if(_elements.size()!=ps->_elements.size())
-            return false;
-            for(int i =0;i<_elements.size();i++){
-                if(_elements[i]->value() != ps->_elements[i]->value())
-                {
-                    if((isupper(_elements[i]->value()[0]) && isupper(ps->_elements[i]->value()[0])))
-                    {
-                        return true;
-                    }
-                    if((isupper(_elements[i]->value()[0]) && !(isupper(ps->_elements[i]->value()[0]))))
-                    {
-                        _elements[i]->match(*ps->_elements[i]);
-                        return true;
-                    }
-                    if((!(isupper(_elements[i]->value()[0])) && isupper(ps->_elements[i]->value()[0])))
-                    {
-                        ps->_elements[i]->match(*_elements[i]);
-                        return true;
-                    }
-                    return false;
-                }
-            }
-            return true;
+    return ret;
+  }
+string List::value() const{
+    string ret ;
+    if(_elements.empty()){
+        ret = "[]";
+    }
+    else{
+        ret  = "[";
+        std::vector<Term *>::const_iterator it = _elements.begin();
+        for( ; it != _elements.end()-1 ; ++it ){
+        ret += (*it)->value()+", ";
         }
-        // else if(ps2)
-        // {
-        //     std::size_t found= symbol().find(ps2->symbol());
-        //     if(found!=std::string::npos)
-        //     return false;
-        //     *ps2->_value = value();
-        //     return true;
-        // }
-        return false;
-
-    
-
+        ret += (*it)->value()+"]";
+}
+return ret;
+}
+bool List::match(Term & term) {
+    if(typeid(term) ==  typeid(List)){
+        bool ret =true;
+        List * ptrls = dynamic_cast<List*>(&term);
+        if( _elements.size() != ptrls->_elements.size() ){
+        ret = false;
+        }
+        else{
+            for(int i = 0 ; i < _elements.size() ;i++ ){
+                ret = _elements[i]->match(*(ptrls->_elements[i])) ;
+                if(ret == false)
+                    return ret;
+            }
+        }
+        return ret;
+    }
+    else if(typeid(term) == typeid(Variable)){
+        bool ret =true;
+        for(int i = 0 ; i < _elements.size() ;i++ ){
+        if(_elements[i]->symbol() ==  term.symbol()){
+            if( _elements[i]->symbol() == term.symbol() ){
+                ret= false;
+                return ret;
+            }
+        ret = _elements[i]->match(term) ;
+        }
+        if(ret == false)
+                return ret;
+        }
+        return ret;
+    }
+    else{
+        return value () == term.value();
+    }
 }
 Term * List::head() const{
-
     if(_elements.empty())
-    throw std::string("Accessing head in an empty list");
+        throw std::string("Accessing head in an empty list");
+
     return _elements[0];
-
-
 }
-
-List * List::tail() const{
-
+List * List::tail() const {
     if(_elements.empty())
-    throw std::string("Accessing tail in an empty list");
-    vector<Term *>  const & elements2=_elements;
-    List *p=new List(elements2);
-    (const_cast<List*>(p))->_elements.erase((const_cast<List*>(p)->_elements.begin()));
-    return  p;
-    
-
+        throw std::string("Accessing tail in an empty list");
+    vector<Term *> _clone_elements;
+    _clone_elements.assign(_elements.begin()+1, _elements.end());
+    List *ls= new List(_clone_elements) ;
+    return ls;
 }

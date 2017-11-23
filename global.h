@@ -16,11 +16,13 @@ const int NUMBER = 256;
 const int ATOM = 257;
 const int ATOMSC = 258;
 const int VAR = 259;
+const int Con = 260;
 
 #include <vector>
 using std::vector;
 
 vector<pair<string, int>> symtable;
+vector<string> symtable2;
 
 bool isSpecialCh(char c) {
   return c == '+'
@@ -41,6 +43,10 @@ bool isSpecialCh(char c) {
          || c == '?'
          || c == ':';
 }
+bool isCon(char c) {
+  return c == ','
+      || c == '=';
+}   
 
 bool symbolExist(string s, int & val) {
   bool found = false;
@@ -55,5 +61,6 @@ bool symbolExist(string s, int & val) {
 
   return found;
 }
+
 
 #endif
