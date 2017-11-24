@@ -10,22 +10,22 @@ utAtom: mainAtom.o atom.o
 mainAtom.o: mainAtom.cpp utAtom.h atom.h utStruct.h struct.h
 	g++ -std=c++11 -c mainAtom.cpp
 
-atom.o: atom.cpp atom.h variable.h
-	g++ -std=c++11 -c atom.cpp
+atom.o: Atom.cpp atom.h variable.h
+	g++ -std=c++11 -c Atom.cpp
 
 utVariable: mainVariable.o atom.o
 		g++ -o utVariable mainVariable.o atom.o -lgtest -lpthread
 mainVariable.o: mainVariable.cpp utVariable.h variable.h
 		g++ -std=c++11 -c mainVariable.cpp
-list.o:list.cpp list.h
-		g++ -std=c++11 -c list.cpp
+list.o:List.cpp list.h
+		g++ -std=c++11 -c List.cpp
 #exp: mainExp.o
 #	g++ -o exp mainExp.o -lgtest -lpthread
 #mainExp.o: mainExp.cpp exp.h global.h
 #	g++ -std=c++11 -c mainExp.cpp
 
-hw6: mainScanner.o atom.o list.o scanner.h utScanner.h utParser.h parser.h
-	g++ -o hw6 mainScanner.o atom.o list.o -lgtest -lpthread
+hw6: mainScanner.o Atom.o List.o scanner.h utScanner.h utParser.h parser.h
+	g++ -o hw6 mainScanner.o Atom.o List.o -lgtest -lpthread
 mainScanner.o: mainScanner.cpp utScanner.h scanner.h  atom.h struct.h variable.h  utParser.h parser.h
 		g++ -std=c++11 -c mainScanner.cpp
 

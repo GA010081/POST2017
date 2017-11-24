@@ -33,7 +33,7 @@ public:
         processToken<VAR>(s);
         return VAR;
       }
-      else if (isCon(currentChar())) {
+      else if (isCon(currentChar()) || currentChar() == ';') {
         string s = extractCon();
         processToken<Con>(s);
         return Con;
@@ -83,7 +83,7 @@ public:
   }
   string extractCon() {
     int posBegin = position();
-    for (;isCon(buffer[pos]); ++pos);
+    for (;isCon(buffer[pos]) || currentChar() == ';'; ++pos);
     return buffer.substr(posBegin, pos-posBegin);
   }
   char extractChar() {
@@ -100,12 +100,18 @@ private:
   template <int TokenType>
   void processToken(string const & s) {
     int val = -1;
- 
     if (symbolExist(s,val) && TokenType!=260) {
         _tokenValue = val;
     } else {
+      if(TokenType ==260)
+      {
+      symtable2.push_back(s);
+      }
+      else
+      {
       symtable.push_back(pair<string, int>(s,TokenType));
        _tokenValue = symtable.size()-1; // index to symtable
+      }
     }
   }
 };

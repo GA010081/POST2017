@@ -42,23 +42,69 @@ public:
 
 void matchings(){
   createTerms();
-  Node *EqaulLeft=0;
-  Node *EqualRight=0;
-  for(int i = 0 ; i <symtable.size() ; i ++)
-  if(symtable[i].second == 260)
-  symtable2.push_back(symtable[i].first);
-
-  for(int i = 0 ; i <symtable2.size() ; i ++)
+  Node *eqaulLeft=0;
+  Node *equalRight=0;
+  Node *commaLeft=0;
+  Node *commaRight=0;
+  if(symtable2.size()==1)
+  rootTree = new Node(EQUALITY,0,0,0);
+  else
   {
-    for(int j=i*2;j<(i+1)*2;j++)
-    { 
-      if(!EqaulLeft)
-      EqaulLeft=new Node(TERM,_terms[j],0,0);
-      else if (!EqualRight)
-      EqualRight=new Node(TERM,_terms[j],0,0);
-      if(EqualRight && EqaulLeft)
-      rootTree =new Node(EQUALITY,0,EqaulLeft,EqualRight);
+    for(int i = 1 ; i <symtable2.size() ; i++)
+    {
+      if(symtable2[i] == "," || symtable2[i]==";" )
+      {
+          commaLeft = new Node(EQUALITY,0,0,0);
+          if(i+2<symtable2.size())
+          commaRight = new Node(COMMA,0,0,0);
+          else
+          commaRight = new Node(EQUALITY,0,0,0);
+          if(rootTree ==0 )
+          {
+          if(symtable2[i]==",")
+            rootTree = new Node(COMMA,0,commaLeft,commaRight);
+          else
+            {
+            
+            rootTree = new Node(SEMICOLON,0,commaLeft,commaRight);     
+            }
+          }
+          else if(symtable2.size()%2==1)
+          {
+            Node *payloadComma = findLeft(rootTree);
+            payloadComma->left = commaLeft;
+             payloadComma->right = commaRight;
+          }
+
+      }
+
     }
+     
+  }
+   findTerm(rootTree);
+  
+}
+Node *findLeft(Node *l)
+{
+  if(l->payload == COMMA && l->left==0)
+  return l;
+  else
+  return findLeft(l->right);
+}
+
+Node findTerm(Node *nodetree)
+{
+  if(nodetree->payload == EQUALITY)
+  {
+    nodetree->left = new Node(TERM,termtable[0],0,0);
+    termtable.erase (termtable.begin());
+    nodetree->right = new Node(TERM,termtable[0],0,0);
+    termtable.erase (termtable.begin());
+  }
+  else if(nodetree->payload == COMMA|| nodetree->payload == SEMICOLON)
+  {
+  findTerm(nodetree->left);
+  findTerm(nodetree->right);
   }
   
 }
@@ -110,14 +156,17 @@ private:
       _terms.push_back(term);
       while((_currentToken = _scanner.nextToken()) == 260) {
         _terms.push_back(createTerm());
-         
+         termtable = _terms;
+         termtable2 =_terms;
       }
     }
+  
   }
 
   vector<Term *> _terms;
   Scanner _scanner;
   Node *rootTree;
+  int _termsInt = 0;
   int _currentToken;
 };
 #endif

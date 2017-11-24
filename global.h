@@ -23,6 +23,11 @@ using std::vector;
 
 vector<pair<string, int>> symtable;
 vector<string> symtable2;
+vector<Term *> termtable;
+vector<Term *> termtable2;
+int gloabalInt=0;
+
+
 
 bool isSpecialCh(char c) {
   return c == '+'
@@ -32,7 +37,7 @@ bool isSpecialCh(char c) {
          || c == '/'
          || c == '<'
          || c == '>'
-         || c == '.'
+        //  || c == '.'
          || c == '&'
          || c == '\\'
          || c == '~'
@@ -54,11 +59,9 @@ bool symbolExist(string s, int & val) {
   vector<pair<string, int>>::iterator it = find_if(symtable.begin(), symtable.end(), [s](pair<string, int> ele) {
     return ele.first == s;
   });
-
   found = symtable.end() != it;
   if (found)
    val = it - symtable.begin();
-
   return found;
 }
 
