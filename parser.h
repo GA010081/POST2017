@@ -71,7 +71,7 @@ void matchings(){
           }
           else if(symtable2.size()%2==1)
           {
-            Node *payloadComma = findLeft(rootTree);
+            Node *payloadComma = findLeft(rootTree->right);
             payloadComma->left = commaLeft;
              payloadComma->right = commaRight;
           }
