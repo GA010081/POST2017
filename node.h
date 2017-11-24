@@ -9,19 +9,20 @@ public:
   Node(Operators op):payload(op), term(0), left(0), right(0) {}
   Node(Operators op, Term *t, Node *l, Node *r):payload(op), term(t), left(l), right(r) {}
   bool evaluate(){
-      return findEqual(this);
+      return findEqual(this,0,termtable2.size());
   }
-  bool findEqual(Node *n)
+  bool findEqual(Node *n,int first ,int rest)
     {
         if(n->payload == SEMICOLON)
         {
           gloabalInt+=2;
+          return findEqual(n->left,0,gloabalInt) && findEqual(n->right,gloabalInt,termtable2.size()) ;
         }
         if(n->payload == EQUALITY)
         {
         if( isupper(n->left->term->symbol()[0]) || isupper(n->right->term->symbol()[0]) )
         {
-          for(int i = gloabalInt ;i<termtable2.size();i++)
+          for(int i = first ;i<rest;i++)
           {
            
               Struct *s1 = dynamic_cast<Struct *>(termtable2[i]);
@@ -44,14 +45,12 @@ public:
         return n->left->term->match(*n->right->term);
         }
       else
-        return findEqual(n->left) && findEqual(n->right) ;
+        return findEqual(n->left,gloabalInt,termtable2.size()) && findEqual(n->right,gloabalInt,termtable2.size()) ;
     }
   void findStuct(Struct *s,Node *l,Node *r){
     for(int i =0 ;i<s->arity();i++)
     { 
       Struct *s1 = dynamic_cast<Struct *>(s->args(i));
-      std::cout<<s->args(i)->symbol()<<std::endl; 
-
       if(s1)
       findStuct(s1,l,r);
       else{

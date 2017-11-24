@@ -109,6 +109,8 @@ private:
       }
       else
       {
+      if(s=="." && currentChar() !='(');
+      else
       symtable.push_back(pair<string, int>(s,TokenType));
        _tokenValue = symtable.size()-1; // index to symtable
       }
