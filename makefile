@@ -1,32 +1,28 @@
 all: hw6
 
 
+
 utAtom: mainAtom.o atom.o
 	g++ -o utAtom mainAtom.o atom.o -lgtest -lpthread
 mainAtom.o: mainAtom.cpp utAtom.h atom.h utStruct.h struct.h
 	g++ -std=gnu++0x -c mainAtom.cpp
 
-tom.o: atom.cpp atom.h variable.h
-	g++ -std=gnu++0x -c atom.cpp
+atom.o: Atom.cpp atom.h variable.h
+	g++ -std=gnu++0x -c Atom.cpp
 
 utVariable: mainVariable.o atom.o
 		g++ -o utVariable mainVariable.o atom.o -lgtest -lpthread
 mainVariable.o: mainVariable.cpp utVariable.h variable.h
 		g++ -std=gnu++0x -c mainVariable.cpp
-list.o:list.cpp list.h
-		g++ -std=gnu++0x -c list.cpp
+list.o:List.cpp list.h
+		g++ -std=gnu++0x -c List.cpp
 #exp: mainExp.o
 #	g++ -o exp mainExp.o -lgtest -lpthread
 #mainExp.o: mainExp.cpp exp.h global.h
 #	g++ -std=c++11 -c mainExp.cpp
 
-<<<<<<< HEAD
 hw6: mainScanner.o Atom.o List.o scanner.h utScanner.h utParser.h parser.h
-	g++ -o hw6 mainScanner.o Atom.o List.o -lgtest -lpthread
-=======
-hw6: mainScanner.o atom.o list.o scanner.h utScanner.h utParser.h parser.h
-	g++ -o hw6 mainScanner.o atom.o list.o -lgtest 
->>>>>>> 8a17eb0cced682d4b3e5f18d6197ad61aecb4626
+	g++ -o hw6 mainScanner.o Atom.o List.o -lgtest 
 mainScanner.o: mainScanner.cpp utScanner.h scanner.h  atom.h struct.h variable.h  utParser.h parser.h
 		g++ -std=gnu++0x -c mainScanner.cpp
 
