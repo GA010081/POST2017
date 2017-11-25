@@ -54,18 +54,15 @@ void matchings(){
       
       if(symtable2[i] == "," || symtable2[i]==";" )
       {
-          std::cout<<"left tree"<<std::endl;   
           commaLeft = new Node(EQUALITY,0,0,0);
           if(i+2<symtable2.size())
           commaRight = new Node(COMMA,0,0,0);
           else
           {
-          std::cout<<"right tree"<<std::endl;            
           commaRight = new Node(EQUALITY,0,0,0);
           }
           if(rootTree==0)
           {
-            std::cout<<"only once"<<std::endl;
             if(symtable2[i]==",")
             rootTree = new Node(COMMA,0,commaLeft,commaRight);
             else
@@ -73,7 +70,6 @@ void matchings(){
           }
           else if(symtable2.size()%2==1 && symtable2.size()>3)
           {
-            std::cout<<"symtable2.size()"<<std::endl;
             Node *payloadComma = findLeft(rootTree);
             payloadComma->left = commaLeft;
              payloadComma->right = commaRight;
