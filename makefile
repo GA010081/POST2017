@@ -22,7 +22,7 @@ list.o:List.cpp list.h
 #	g++ -std=c++11 -c mainExp.cpp
 
 hw6: mainScanner.o Atom.o List.o scanner.h utScanner.h utParser.h parser.h node.h
-	g++ -o hw6 mainScanner.o Atom.o List.o -lgtest -lpthread
+	g++ -o hw6 mainScanner.o Atom.o List.o -lgtest 
 mainScanner.o: mainScanner.cpp utScanner.h scanner.h  atom.h struct.h variable.h  utParser.h parser.h
 		g++ -std=gnu++0x -c mainScanner.cpp
 
