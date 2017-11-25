@@ -33,9 +33,9 @@ public:
                 else{
 
                   if( (termtable2[i]->symbol()==n->left->term->symbol()) &&  !(termtable2[i]->value() == termtable2[i]->symbol()) )
-                    n->left->term->match(*termtable2[i]);
+                  termtable2[i]->match(*n->left->term);
                   else if(  (termtable2[i]->symbol()==n->right->term->symbol()) && !(termtable2[i]->value() == termtable2[i]->symbol()) )
-                  n->right->term->match(*termtable2[i]);
+                  termtable2[i]->match(*n->right->term);
               }
             }
           }
@@ -52,7 +52,7 @@ public:
       findStuct(s1,l,r);
       else{
         s1=0;
-      if(s->args(i)->symbol()==l->term->symbol())
+      if(s->args(i)->symbol()==l->term->symbol()) 
       l->term->match(*s->args(i));
       if(s->args(i)->symbol()==r->term->symbol())
       r->term->match(*s->args(i));
