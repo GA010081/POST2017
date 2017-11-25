@@ -31,7 +31,7 @@ public:
                     findStuct(s1,n->right,n->left);
                 }
                 else{
-
+                  std::cout<<"symtable2.size()"<<std::endl;
                   if( (termtable2[i]->symbol()==n->left->term->symbol()) &&  !(termtable2[i]->value() == termtable2[i]->symbol()) )
                   termtable2[i]->match(*n->left->term);
                   else if(  (termtable2[i]->symbol()==n->right->term->symbol()) && !(termtable2[i]->value() == termtable2[i]->symbol()) )
