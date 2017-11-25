@@ -308,6 +308,10 @@ TEST_F(ParserTest, TwoVariableMatching2) {
 
   Node * et = parser.expressionTree();
   EXPECT_TRUE(et->evaluate());
+  EXPECT_EQ(COMMA,et->payload);
+  EXPECT_EQ(EQUALITY,et->left->payload);
+  EXPECT_EQ(EQUALITY,et->right->payload);
+  
 
   EXPECT_EQ("1", terms[0]->value());
   EXPECT_EQ("1", terms[3]->value());

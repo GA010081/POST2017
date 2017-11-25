@@ -1,9 +1,5 @@
 all: hw6
 
-madRace: mainMadRace.o
-	g++ -o madRace mainMadRace.o -lgtest -lpthread
-mainMadRace.o: mainMadRace.cpp madRace.h utMadRace.h
-	g++ -std=gnu++0x -c mainMadRace.cpp
 
 utAtom: mainAtom.o atom.o
 	g++ -o utAtom mainAtom.o atom.o -lgtest -lpthread
@@ -25,7 +21,7 @@ list.o:List.cpp list.h
 #	g++ -std=c++11 -c mainExp.cpp
 
 hw6: mainScanner.o Atom.o List.o scanner.h utScanner.h utParser.h parser.h
-	g++ -o hw6 mainScanner.o Atom.o List.o -lgtest 
+	g++ -o hw6 mainScanner.o Atom.o List.o -lgtest -lpthread
 mainScanner.o: mainScanner.cpp utScanner.h scanner.h  atom.h struct.h variable.h  utParser.h parser.h
 		g++ -std=gnu++0x -c mainScanner.cpp
 

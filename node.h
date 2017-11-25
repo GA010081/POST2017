@@ -18,31 +18,28 @@ public:
           gloabalInt+=2;
           return findEqual(n->left,0,gloabalInt) && findEqual(n->right,gloabalInt,termtable2.size()) ;
         }
-        if(n->payload == EQUALITY)
+        else if(n->payload == EQUALITY)
         {
-        if( isupper(n->left->term->symbol()[0]) || isupper(n->right->term->symbol()[0]) )
-        {
-          for(int i = first ;i<rest;i++)
+          if( isupper(n->left->term->symbol()[0]) || isupper(n->right->term->symbol()[0]) )
           {
-           
-              Struct *s1 = dynamic_cast<Struct *>(termtable2[i]);
-              if(s1)
+            for(int i = first ;i<rest;i++)
               {
-                  findStuct(s1,n->right,n->left);
+            
+                Struct *s1 = dynamic_cast<Struct *>(termtable2[i]);
+                if(s1)
+                {
+                    findStuct(s1,n->right,n->left);
+                }
+                else{
+
+                  if( (termtable2[i]->symbol()==n->left->term->symbol()) &&  !(termtable2[i]->value() == termtable2[i]->symbol()) )
+                    n->left->term->match(*termtable2[i]);
+                  else if(  (termtable2[i]->symbol()==n->right->term->symbol()) && !(termtable2[i]->value() == termtable2[i]->symbol()) )
+                  n->right->term->match(*termtable2[i]);
               }
-              else{
-              if(termtable2[i]->symbol()==n->left->term->symbol() && termtable2[i]->value() !=termtable2[i]->symbol())
-              {
-                s1=0;
-                n->left->term->match(*termtable2[i]);
-              }
-              if(termtable2[i]->symbol()==n->right->term->symbol() && termtable2[i]->value()!=termtable2[i]->symbol())
-              n->right->term->match(*termtable2[i]);
-              s1=0;
             }
           }
-        }
-        return n->left->term->match(*n->right->term);
+          return n->left->term->match(*n->right->term);
         }
       else
         return findEqual(n->left,gloabalInt,termtable2.size()) && findEqual(n->right,gloabalInt,termtable2.size()) ;

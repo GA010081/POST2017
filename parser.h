@@ -42,8 +42,6 @@ public:
 
 void matchings(){
   createTerms();
-  Node *eqaulLeft=0;
-  Node *equalRight=0;
   Node *commaLeft=0;
   Node *commaRight=0;
   if(symtable2.size()==1)
