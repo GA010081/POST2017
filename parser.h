@@ -48,6 +48,7 @@ void matchings(){
   rootTree = new Node(EQUALITY,0,0,0);
   else
   {
+    rootTree =  0;
     for(int i = 1 ; i <symtable2.size() ; i++)
     {
       
@@ -167,7 +168,7 @@ private:
 
   vector<Term *> _terms;
   Scanner _scanner;
-  Node *rootTree;
+  Node *rootTree=0;
   int _termsInt = 0;
   int _currentToken;
 };
