@@ -66,6 +66,7 @@ void matchings(){
           }
           else if(symtable2.size()%2==1 && symtable2.size()>3)
           {
+            std::cout<<"symtable2.size()"<<std::endl;
             Node *payloadComma = findLeft(rootTree);
             payloadComma->left = commaLeft;
              payloadComma->right = commaRight;
