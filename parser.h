@@ -62,7 +62,7 @@ void matchings(){
           std::cout<<"right tree"<<std::endl;            
           commaRight = new Node(EQUALITY,0,0,0);
           }
-          if(!rootTree)
+          if(rootTree==0)
           {
             std::cout<<"only once"<<std::endl;
             if(symtable2[i]==",")
