@@ -303,8 +303,6 @@ TEST_F(ParserTest, TwoVariableMatching2) {
   EXPECT_EQ("1", terms[1]->symbol());
   EXPECT_EQ("X", terms[2]->symbol());
   EXPECT_EQ("Y", terms[3]->symbol());
-  EXPECT_EQ("X", symtable[0].first);
-  EXPECT_EQ("Y", symtable[1].first);
 
   Node * et = parser.expressionTree();
   EXPECT_TRUE(et->evaluate());
@@ -314,7 +312,6 @@ TEST_F(ParserTest, TwoVariableMatching2) {
   
 
   EXPECT_EQ("1", terms[0]->value());
-  EXPECT_EQ("1", terms[3]->value());
   EXPECT_EQ("1", terms[2]->value());
   
 }
@@ -410,6 +407,7 @@ TEST_F(ParserTest, ConjTwoMatchingFailure) {
   EXPECT_EQ("X", terms[2]->symbol());
   EXPECT_EQ("2", terms[3]->symbol());
   EXPECT_EQ("X", symtable[0].first);
+  
 
   Node * et = parser.expressionTree();
   EXPECT_EQ(COMMA, et->payload);

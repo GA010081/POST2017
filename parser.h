@@ -57,17 +57,14 @@ void matchings(){
           commaRight = new Node(COMMA,0,0,0);
           else
           commaRight = new Node(EQUALITY,0,0,0);
-          if(rootTree ==0 )
+          if(!rootTree)
           {
-          if(symtable2[i]==",")
+            if(symtable2[i]==",")
             rootTree = new Node(COMMA,0,commaLeft,commaRight);
-          else
-            {
-            
+            else
             rootTree = new Node(SEMICOLON,0,commaLeft,commaRight);     
-            }
           }
-          else if(symtable2.size()%2==1)
+          else if(symtable2.size()%2==1 && symtable2.size()>3)
           {
             Node *payloadComma = findLeft(rootTree);
             payloadComma->left = commaLeft;
