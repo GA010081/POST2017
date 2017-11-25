@@ -50,7 +50,7 @@ void matchings(){
   {
     for(int i = 1 ; i <symtable2.size() ; i++)
     {
-      std::cout<<"symtable2.size()"<<std::endl;
+      
       if(symtable2[i] == "," || symtable2[i]==";" )
       {
           commaLeft = new Node(EQUALITY,0,0,0);
@@ -60,6 +60,7 @@ void matchings(){
           commaRight = new Node(EQUALITY,0,0,0);
           if(!rootTree)
           {
+            std::cout<<"only once"<<std::endl;
             if(symtable2[i]==",")
             rootTree = new Node(COMMA,0,commaLeft,commaRight);
             else
