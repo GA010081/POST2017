@@ -1,30 +1,43 @@
-all: hw6
+all: madRace utAtom utVariable utScanner
 
+madRace: mainMadRace.o
+	g++ -o madRace mainMadRace.o -lgtest -lpthread
+mainMadRace.o: mainMadRace.cpp madRace.h utMadRace.h
+	g++ -std=c++11 -c mainMadRace.cpp
 
-
-utAtom: mainAtom.o atom.o
-	g++ -o utAtom mainAtom.o atom.o -lgtest -lpthread
+utAtom: mainAtom.o atom.o struct.o
+	g++ -o utAtom mainAtom.o atom.o struct.o -lgtest -lpthread
 mainAtom.o: mainAtom.cpp utAtom.h atom.h utStruct.h struct.h
-	g++ -std=gnu++0x -c mainAtom.cpp
+	g++ -std=c++11 -c mainAtom.cpp
 
-atom.o: Atom.cpp atom.h variable.h
-	g++ -std=gnu++0x -c Atom.cpp
+atom.o: atom.cpp atom.h variable.h
+	g++ -std=c++11 -c atom.cpp
 
-utVariable: mainVariable.o atom.o
-		g++ -o utVariable mainVariable.o atom.o -lgtest -lpthread
+utVariable: mainVariable.o atom.o struct.o
+		g++ -o utVariable mainVariable.o atom.o struct.o -lgtest -lpthread
 mainVariable.o: mainVariable.cpp utVariable.h variable.h
-		g++ -std=gnu++0x -c mainVariable.cpp
-list.o:List.cpp list.h
-		g++ -std=gnu++0x -c List.cpp
+		g++ -std=c++11 -c mainVariable.cpp
+list.o:list.cpp list.h
+		g++ -std=c++11 -c list.cpp
+struct.o:struct.cpp struct.h
+		g++ -std=c++11 -c struct.cpp
 #exp: mainExp.o
 #	g++ -o exp mainExp.o -lgtest -lpthread
 #mainExp.o: mainExp.cpp exp.h global.h
 #	g++ -std=c++11 -c mainExp.cpp
 
-hw6: mainScanner.o Atom.o List.o scanner.h utScanner.h utParser.h parser.h node.h
-	g++ -o hw6 mainScanner.o Atom.o List.o -lgtest 
+utScanner: mainScanner.o atom.o list.o struct.o scanner.h utScanner.h utParser.h parser.h
+	g++ -o utScanner mainScanner.o atom.o list.o struct.o -lgtest -lpthread
 mainScanner.o: mainScanner.cpp utScanner.h scanner.h  atom.h struct.h variable.h  utParser.h parser.h
-		g++ -std=gnu++0x -c mainScanner.cpp
+		g++ -std=c++11 -c mainScanner.cpp
+utIterator: mainIterator.o atom.o list.o struct.o iterator.h utIterator.h
+	g++ -o utIterator mainIterator.o atom.o list.o struct.o -lgtest -lpthread
+
+
+
+mainIterator.o: mainIterator.cpp utIterator.h
+	g++ -std=c++11 -c mainIterator.cpp
+
 
 #utTerm: mainTerm.o term.o struct.o var.o list.o
 #	g++ -o utTerm mainTerm.o term.o var.o struct.o list.o -lgtest -lpthread
@@ -39,6 +52,6 @@ mainScanner.o: mainScanner.cpp utScanner.h scanner.h  atom.h struct.h variable.h
 #list.o: list.h list.cpp term.h var.h
 #	g++ -std=c++11 -c list.cpp
 clean:
-	rm -f *.o hw6
+	rm -f *.o madRace utAtom utVariable utScanner
 stat:
 	wc *.h *.cpp
