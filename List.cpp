@@ -132,6 +132,26 @@ void List::prepareBFSStack(){
     _q.push_back(_elements[j]);
     j++;
   }
+  
+  for(int i = 0 ; i<_elements.size();i++)
+  {
+    Struct *s1 = dynamic_cast<Struct *>(_elements[i]);
+    List *s2 = dynamic_cast<List *>(_elements[i]);  
+    if(s1)
+    {
+      for(int i = 0 ; i<s1->_args.size();i++)
+      {
+        _q.push_back(s1->_args[i]);
+      }
+    }    
+    if(s2)
+    {
+      for(int i = 0 ; i<s2->_elements.size();i++)
+      {
+        _q.push_back(s2->_elements[i]);
+      }
+    }   
+  }
   for(int i = 0 ; i<_elements.size();i++)
   {
     Struct *s1 = dynamic_cast<Struct *>(_elements[i]);
@@ -195,11 +215,24 @@ void List::findNestedList(List *l2)
  }
 }
 void List::findNestedStructB(Struct *s2){
-    int k =0;
-    while(k<s2->_args.size())
+    for(int i = 0 ; i<s2->_args.size();i++)
     {
-      _q.push_back(s2->_args[k]);
-      k++;
+      Struct *s1 = dynamic_cast<Struct *>(s2->_args[i]);
+      List *l2 = dynamic_cast<List *>(s2->_args[i]);  
+      if(s1)
+      {
+        for(int i = 0 ; i<s1->_args.size();i++)
+        {
+          _q.push_back(s1->_args[i]);
+        }
+      }    
+      if(l2)
+      {
+        for(int i = 0 ; i<l2->_elements.size();i++)
+        {
+          _q.push_back(l2->_elements[i]);
+        }
+      }   
     }
     for(int i = 0 ; i<s2->_args.size();i++)
     {
@@ -218,11 +251,24 @@ void List::findNestedStructB(Struct *s2){
     }
   }
   void List::findNestedListB(List *l2){
-    int l =0;
-    while(l<l2->_elements.size())
+    for(int i = 0 ; i<l2->_elements.size();i++)
     {
-      _q.push_back(l2->_elements[l]);
-      l++;
+      Struct *s1 = dynamic_cast<Struct *>(l2->_elements[i]);
+      List *l3 = dynamic_cast<List *>(l2->_elements[i]);  
+      if(s1)
+      {
+        for(int i = 0 ; i<s1->_args.size();i++)
+        {
+          _q.push_back(s1->_args[i]);
+        }
+      }    
+      if(l3)
+      {
+        for(int i = 0 ; i<l3->_elements.size();i++)
+        {
+          _q.push_back(l3->_elements[i]);
+        }
+      }   
     }
     for(int i = 0 ; i<l2->_elements.size();i++)
     {
