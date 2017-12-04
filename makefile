@@ -13,7 +13,7 @@ struct.o:struct.cpp struct.h
 
 
 hw7: mainIterator.o atom.o list.o struct.o iterator.h utIterator.h struct.h 
-	g++ -o hw7 mainIterator.o atom.o list.o struct.o -lgtest -lpthread
+	g++ -o hw7 mainIterator.o atom.o list.o struct.o -lgtest 
 
 
 
