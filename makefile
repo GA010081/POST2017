@@ -1,3 +1,4 @@
+all: hw7
 atom.o: atom.cpp atom.h variable.h
 	g++ -std=gnu++0x -c atom.cpp
 
@@ -21,6 +22,6 @@ mainIterator.o: mainIterator.cpp utIterator.h
 
 
 clean:
-	rm -f *.o madRace utAtom utVariable utScanner hw7
+	rm -f *.o  hw7
 stat:
 	wc *.h *.cpp
