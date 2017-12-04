@@ -1,6 +1,19 @@
 #include "struct.h"
 #include "iterator.h"
-Iterator * Struct::createIterator()
+#include "atom.h"
+Iterator<Term *> * Struct::createIterator()
 {
-  return new StructIterator(this);
+  return new StructIterator<Term*>(this);
 }
+
+Iterator<Term *> * Struct::createDFSIterator()
+{
+  prepareDFSStack();
+  return new StructBFSIterator<Term*>(this);
+}
+Iterator<Term *> * Struct::createBFSIterator()
+{
+  prepareBFSStack();
+  return new StructBFSIterator<Term*>(this);
+}
+

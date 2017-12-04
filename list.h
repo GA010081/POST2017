@@ -6,7 +6,10 @@
 #include <string>
 #include <typeinfo>
 #include <iostream>
+template<typename T>
+class Iterator;
 using std::vector;
+
 
 class Variable ;
 
@@ -16,16 +19,17 @@ public:
   string value() const ;
   bool match(Term & term) ;
 public:
-  List (): _elements(0) {}
   List (vector<Term *> const & elements):_elements(elements){}
+  List (): _elements(0) {}
   Term * head() const;
   List * tail() const;
   Term * args(int index) {
     return _elements[index];
   }
   int arity() const {return _elements.size();}
-private:
+  Iterator<Term *> * createIterator();  
   vector<Term *> _elements;
+private:
 };
 
 #endif
