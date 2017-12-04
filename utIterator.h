@@ -71,15 +71,13 @@ TEST(iterator, firstList) {
     ASSERT_TRUE(itList->isDone());
 }
 
-// TEST(iterator, NullIterator){
-//   Number one(1);
-//   NullIterator nullIterator(&one);
-//   nullIterator.first();
-//   ASSERT_TRUE(nullIterator.isDone());
-//   Iterator * it = one.createIterator();
-//   it->first();
-//   ASSERT_TRUE(it->isDone());
-// }
+TEST(iterator, NullIterator){
+  Number one(1);
+  Iterator<Term *> *it = one.createIterator();
+  it->first();
+  ASSERT_TRUE(it->isDone());
+
+}
 
 
 //DFS
@@ -106,7 +104,7 @@ TEST(DFSIterator, Struct){
   ASSERT_TRUE(it->isDone());  
 
 }
-TEST(DFSIterator, StructNested1){
+TEST(DFSIterator, StructNested){
   
     Number one(1);
     
@@ -139,49 +137,25 @@ TEST(DFSIterator, StructNested1){
     // it->next();
     // EXPECT_EQ("Y",it->currentItem()->symbol());
   
-    
   }
-  TEST(DFSIterator, StructNested2){
+  TEST(DFSIterator, List){
     
       Number one(1);
       
       Variable X("X");
-      Variable Y("Y");  
       Number two(2);
-      
-      Struct t(Atom("t"), { &X, &two });
-      Struct s(Atom("s"), { &one, &t, &Y });  
-      Struct z(Atom("s"), { &one, &s, &Y });  
-  
-      Iterator<Term *> *it = z.createDFSIterator();
+      List l({ &X, &two });
+      Iterator<Term *> *it = l.createDFSIterator();
       it->first();
-      ASSERT_FALSE(it->isDone());
-      EXPECT_EQ("1",it->currentItem()->symbol());  
-      ASSERT_FALSE(it->isDone());
-      it->next();
-      EXPECT_EQ("s(1, t(X, 2), Y)",it->currentItem()->symbol());
-      ASSERT_FALSE(it->isDone());    
-      it->next();
-      EXPECT_EQ("1",it->currentItem()->symbol());
-      ASSERT_FALSE(it->isDone());    
-      it->next();
-      EXPECT_EQ("t(X, 2)",it->currentItem()->symbol());
-      ASSERT_FALSE(it->isDone());    
-      it->next();
-      EXPECT_EQ("X",it->currentItem()->symbol());
+      EXPECT_EQ("X",it->currentItem()->symbol());  
       it->next();
       ASSERT_FALSE(it->isDone());
       EXPECT_EQ("2",it->currentItem()->symbol());
-      it->next();
-      ASSERT_FALSE(it->isDone());
-      EXPECT_EQ("Y",it->currentItem()->symbol());
-      it->next();
-      ASSERT_FALSE(it->isDone());
-      EXPECT_EQ("Y",it->currentItem()->symbol());
+      ASSERT_FALSE(it->isDone());    
       it->next();
       ASSERT_TRUE(it->isDone());
     }
-TEST(DFSIterator, StructOfList){
+TEST(DFSIterator, ListNested){
       
         Number one(1);
         
@@ -190,12 +164,12 @@ TEST(DFSIterator, StructOfList){
         Number two(2);
         
         List l({ &X, &two });
-        Struct s(Atom("s"), { &one, &l, &Y });  
+        List l2({ &X, &l,&two });
     
-        Iterator<Term *> *it = s.createDFSIterator();
+        Iterator<Term *> *it = l2.createDFSIterator();
         it->first();
         ASSERT_FALSE(it->isDone());
-        EXPECT_EQ("1",it->currentItem()->symbol());  
+        EXPECT_EQ("X",it->currentItem()->symbol());  
         ASSERT_FALSE(it->isDone());
         it->next();
         EXPECT_EQ("[X, 2]",it->currentItem()->symbol());
@@ -207,7 +181,7 @@ TEST(DFSIterator, StructOfList){
         EXPECT_EQ("2",it->currentItem()->symbol());
         ASSERT_FALSE(it->isDone());    
         it->next();
-        EXPECT_EQ("Y",it->currentItem()->symbol());
+        EXPECT_EQ("2",it->currentItem()->symbol());
         it->next();
         ASSERT_TRUE(it->isDone());
         
@@ -216,5 +190,116 @@ TEST(DFSIterator, StructOfList){
       
         
       }
+TEST(BFSIterator, Struct){
+        
+          Number one(1);
+          
+          Variable X("X");
+          Variable Y("Y");  
+
+          Struct s(Atom("s"), { &one, &X, &Y });  
+
+      
+          Iterator<Term *> *it = s.createBFSIterator();
+          it->first();
+          ASSERT_FALSE(it->isDone());
+          EXPECT_EQ("1",it->currentItem()->symbol());  
+          it->next();
+          ASSERT_FALSE(it->isDone());
+          EXPECT_EQ("X",it->currentItem()->symbol());
+          it->next();
+          ASSERT_FALSE(it->isDone());    
+          EXPECT_EQ("Y",it->currentItem()->symbol());
+          it->next();
+          ASSERT_TRUE(it->isDone());    
+
+          
+}
+TEST(BFSIterator, StructNested){
+  
+   
+  
+  Variable X("X");
+  Number two(2);
+  Number one(1);
+  
+  Struct t(Atom("t"), { &X, &two });
+  Struct s(Atom("t"), { &X, &t, &one });
+
+  Iterator<Term *> *it = s.createBFSIterator();
+  it->first();
+  ASSERT_FALSE(it->isDone());
+  EXPECT_EQ("X",it->currentItem()->symbol());  
+  it->next();
+  ASSERT_FALSE(it->isDone()); 
+  EXPECT_EQ("t(X, 2)",it->currentItem()->symbol());
+  it->next();
+  ASSERT_FALSE(it->isDone()); 
+  EXPECT_EQ("1",it->currentItem()->symbol());
+  it->next();
+  ASSERT_FALSE(it->isDone()); 
+  EXPECT_EQ("X",it->currentItem()->symbol());
+  it->next();
+  ASSERT_FALSE(it->isDone()); 
+  EXPECT_EQ("2",it->currentItem()->symbol());
+  it->next();
+  ASSERT_TRUE(it->isDone());  
+
+    
+}
+TEST(BFSIterator, List){
+  
+   
+  Variable X("X");
+  Number two(2);
+  Number one(1);
+  Struct l(Atom("t"), { &X, &two });
+
+  Iterator<Term *> *it = l.createBFSIterator();
+  it->first();
+  ASSERT_FALSE(it->isDone());
+  EXPECT_EQ("X",it->currentItem()->symbol());  
+  it->next();
+  ASSERT_FALSE(it->isDone()); 
+  EXPECT_EQ("2",it->currentItem()->symbol());
+  it->next();
+  ASSERT_TRUE(it->isDone()); 
+  
+    
+}
+TEST(BFSIterator, ListNested){
+  
+   
+  
+  Variable X("X");
+  Number two(2);
+  Number one(1);
+  
+  List l( { &X, &two });
+  List l2( { &X,&l, &two });
+
+
+  Iterator<Term *> *it = l2.createBFSIterator();
+  it->first();
+  ASSERT_FALSE(it->isDone());
+  EXPECT_EQ("X",it->currentItem()->symbol());  
+  it->next();
+  ASSERT_FALSE(it->isDone()); 
+  EXPECT_EQ("[X, 2]",it->currentItem()->symbol());
+  it->next();
+  ASSERT_FALSE(it->isDone()); 
+  EXPECT_EQ("2",it->currentItem()->symbol());  
+  it->next();
+  ASSERT_FALSE(it->isDone()); 
+  EXPECT_EQ("X",it->currentItem()->symbol());  
+  it->next();
+  ASSERT_FALSE(it->isDone()); 
+  EXPECT_EQ("2",it->currentItem()->symbol());  
+  it->next();
+  ASSERT_TRUE(it->isDone()); 
+  
+    
+}
+  
 
 #endif

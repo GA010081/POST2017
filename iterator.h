@@ -99,17 +99,80 @@ private:
   int _index;
   Struct *c;
 };
-// template <class T>
-// class ListBFSIterator:public Iterator<T>{
+template <class T>
+class ListBFSIterator:public Iterator<T>{
+public:
+  friend class List;
+  void first() {
+    _index = 0;
+  }
 
-// };
-// template <class T>
-// class StructDFSIterator:public Iterator<T>{
+  Term* currentItem() const {
+    return c->args_q(_index);
+  }
+
+  bool isDone() const {
+    return _index >= c->_q.size();
+  }
+
+  void next() {
+    _index++;
+  }
+private:
+  ListBFSIterator(List *s): _index(0), c(s) {}
+  int _index;
+  List *c;
+
+};
+template <class T>
+class StructDFSIterator:public Iterator<T>{
+public:
+  friend class Struct;
+  void first() {
+    _index = 0;
+  }
+
+  Term* currentItem() const {
+    return c->args_q(_index);
+  }
+
+  bool isDone() const {
+    return _index >= c->_q.size();
+  }
+
+  void next() {
+    _index++;
+  }
+private:
+  StructDFSIterator(Struct *s): _index(0), c(s) {}
+  int _index;
+  Struct *c;
   
-//   };
-// template <class T>
-// class ListDFSIterator:public Iterator<T>{
+  };
+template <class T>
+class ListDFSIterator:public Iterator<T>{
+public:
+  friend class List;
+  void first() {
+    _index = 0;
+  }
+
+  Term* currentItem() const {
+    return c->args_q(_index);
+  }
+
+  bool isDone() const {
+    return _index >= c->_q.size();
+  }
+
+  void next() {
+    _index++;
+  }
+private:
+  ListDFSIterator(List *s): _index(0), c(s) {}
+  int _index;
+  List *c;
     
-//     };
+    };
     
 #endif

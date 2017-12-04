@@ -76,13 +76,81 @@ public:
 
     }
   }
-void prepareBFSStack(){    }
+void prepareBFSStack(){
+  int j =0;
+  while(j<_args.size())
+  {
+    _q.push_back(_args[j]);
+    j++;
+  }
+  for(int i = 0 ; i<_args.size();i++)
+  {
+    Struct *s1 = dynamic_cast<Struct *>(_args[i]);
+    List *s2 = dynamic_cast<List *>(_args[i]);      
+    if(s1)
+    {
+      s2 = 0;
+      findNestedStructB(s1);
+    }
+    else if(s2)
+    {
+      s1 = 0;
+      findNestedListB(s2);
+    }
+  }
+}
+void findNestedStructB(Struct *s2){
+  int k =0;
+  while(k<s2->_args.size())
+  {
+    _q.push_back(s2->_args[k]);
+    k++;
+  }
+  for(int i = 0 ; i<s2->_args.size();i++)
+  {
+    Struct *s1 = dynamic_cast<Struct *>(s2->_args[i]);
+    List *l2 = dynamic_cast<List *>(s2->_args[i]);      
+    if(s1)
+    {
+      l2 = 0;
+      findNestedStructB(s1);
+    }
+    else if(l2)
+    {
+      s1 = 0;
+      findNestedListB(l2);
+    }
+  }
+}
+void findNestedListB(List *l2){
+  int l =0;
+  while(l<l2->_elements.size())
+  {
+    _q.push_back(l2->_elements[l]);
+    l++;
+  }
+  for(int i = 0 ; i<l2->_elements.size();i++)
+  {
+    Struct *s1 = dynamic_cast<Struct *>(l2->_elements[i]);
+    List *s2 = dynamic_cast<List *>(l2->_elements[i]);      
+    if(s1)
+    {
+      s2 = 0;
+      findNestedStructB(s1);
+    }
+    else if(s2)
+    {
+      s1 = 0;
+      findNestedListB(s2);
+    }
+  }
+}
 void findNestedStruct(Struct *s2)
 {
   for(int i = 0 ; i<s2->_args.size();i++)
   {
     Struct *s3 = dynamic_cast<Struct *>(s2->_args[i]);
-    List *s4 = dynamic_cast<List *>(_args[i]);  
+    List *s4 = dynamic_cast<List *>(s2->_args[i]);  
     if(s3)
     {
     _q.push_back(s2->_args[i]);
@@ -90,7 +158,7 @@ void findNestedStruct(Struct *s2)
     }
     else if (s4)
     {
-    _q.push_back(_args[i]);
+    _q.push_back(s2->_args[i]);
     findNestedList(s4);
     }
     else

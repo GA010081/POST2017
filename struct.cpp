@@ -9,7 +9,7 @@ Iterator<Term *> * Struct::createIterator()
 Iterator<Term *> * Struct::createDFSIterator()
 {
   prepareDFSStack();
-  return new StructBFSIterator<Term*>(this);
+  return new StructDFSIterator<Term*>(this);
 }
 Iterator<Term *> * Struct::createBFSIterator()
 {

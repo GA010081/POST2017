@@ -5,6 +5,7 @@
 #include <string>
 #include "list.h"
 #include "iterator.h"
+#include "struct.h"
 using std::vector;
 
 string List::symbol() const{
@@ -90,3 +91,152 @@ Iterator<Term *> * List::createIterator()
 {
   return new ListIterator<Term*>(this);
 }
+
+Iterator<Term *> * List::createDFSIterator()
+{
+  prepareDFSStack();
+  return new ListDFSIterator<Term*>(this);
+}
+Iterator<Term *> * List::createBFSIterator(){
+    prepareBFSStack();
+    return new ListBFSIterator<Term*>(this);
+} 
+
+void List::prepareDFSStack(){
+    
+   for(int i = 0 ; i<_elements.size();i++)
+   {
+     Struct *s1 = dynamic_cast<Struct *>(_elements[i]);
+     List *s2 = dynamic_cast<List *>(_elements[i]);      
+     if(s1)
+     {
+       _q.push_back(_elements[i]);
+       findNestedStruct(s1);
+     }
+     else if(s2)
+     {
+       _q.push_back(_elements[i]);
+       findNestedList(s2);
+     }
+     else
+     {
+     _q.push_back(_elements[i]);
+     }
+
+   }
+ }
+void List::prepareBFSStack(){ 
+  int j =0;
+  while(j<_elements.size())
+  {
+    _q.push_back(_elements[j]);
+    j++;
+  }
+  for(int i = 0 ; i<_elements.size();i++)
+  {
+    Struct *s1 = dynamic_cast<Struct *>(_elements[i]);
+    List *s2 = dynamic_cast<List *>(_elements[i]);      
+    if(s1)
+    {
+      s2 = 0;
+      findNestedStructB(s1);
+    }
+    else if(s2)
+    {
+      s1 = 0;
+      findNestedListB(s2);
+    }
+  }
+}
+void List::findNestedStruct(Struct *s2)
+{
+ for(int i = 0 ; i<s2->_args.size();i++)
+ {
+   Struct *s3 = dynamic_cast<Struct *>(s2->_args[i]);
+   List *s4 = dynamic_cast<List *>(s2->_args[i]);  
+   if(s3)
+   {
+   _q.push_back(s2->_args[i]);
+   findNestedStruct(s3);
+   }
+   else if (s4)
+   {
+   _q.push_back(s2->_args[i]);
+   findNestedList(s4);
+   }
+   else
+   {      
+     _q.push_back(s2->_args[i]);
+   }
+
+ }
+}
+void List::findNestedList(List *l2)
+{
+ for(int i = 0 ; i<l2->_elements.size();i++)
+ {
+   Struct *s3 = dynamic_cast<Struct *>(l2->_elements[i]);    
+   List *l3 = dynamic_cast<List *>(l2->_elements[i]);
+   if(l3)
+   {
+   _q.push_back(l2->_elements[i]);
+   findNestedList(l3);
+   }
+   else if (s3)
+   { 
+     _q.push_back(l2->_elements[i]);
+     findNestedStruct(s3);
+   }
+   else
+   {      
+     _q.push_back(l2->_elements[i]);
+   }
+
+ }
+}
+void List::findNestedStructB(Struct *s2){
+    int k =0;
+    while(k<s2->_args.size())
+    {
+      _q.push_back(s2->_args[k]);
+      k++;
+    }
+    for(int i = 0 ; i<s2->_args.size();i++)
+    {
+      Struct *s1 = dynamic_cast<Struct *>(s2->_args[i]);
+      List *l2 = dynamic_cast<List *>(s2->_args[i]);      
+      if(s1)
+      {
+        l2 = 0;
+        findNestedStructB(s1);
+      }
+      else if(l2)
+      {
+        s1 = 0;
+        findNestedListB(l2);
+      }
+    }
+  }
+  void List::findNestedListB(List *l2){
+    int l =0;
+    while(l<l2->_elements.size())
+    {
+      _q.push_back(l2->_elements[l]);
+      l++;
+    }
+    for(int i = 0 ; i<l2->_elements.size();i++)
+    {
+      Struct *s1 = dynamic_cast<Struct *>(l2->_elements[i]);
+      List *s2 = dynamic_cast<List *>(l2->_elements[i]);      
+      if(s1)
+      {
+        s2 = 0;
+        findNestedStructB(s1);
+      }
+      else if(s2)
+      {
+        s1 = 0;
+        findNestedListB(s2);
+      }
+    }
+  }
