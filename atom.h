@@ -4,6 +4,7 @@
 #include <string>
 #include <sstream>
 using std::string;
+using std::stringstream;
 
 template<typename T>
 class Iterator;

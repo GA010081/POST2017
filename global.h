@@ -25,7 +25,11 @@ vector<pair<string, int>> symtable;
 vector<string> symtable2;
 vector<Term *> termtable;
 vector<Term *> termtable2;
+vector<Term *> resultTable2;
+vector<string> resultTable;
 int gloabalInt=0;
+int gloabalInt2 = 0;
+
 
 
 

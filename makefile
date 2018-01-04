@@ -13,15 +13,19 @@ struct.o:struct.cpp struct.h
 
 
 hw7: mainIterator.o atom.o list.o struct.o iterator.h utIterator.h struct.h 
-	g++ -o hw7 mainIterator.o atom.o list.o struct.o -lgtest 
+	g++ -o hw7 mainIterator.o atom.o list.o struct.o -lgtest -lpthread
 
+hw8:  mainExpression.o atom.o list.o struct.o struct.h 
+	g++ -o hw8 mainExpression.o atom.o list.o struct.o -lgtest -lpthread
 
+mainExpression.o:mainExpression.cpp expression.h exception.h
+	g++ -std=gnu++0x -c mainExpression.cpp
 
 mainIterator.o: mainIterator.cpp utIterator.h
 	g++ -std=gnu++0x -c mainIterator.cpp
 
 
 clean:
-	rm -f *.o  hw7
+	rm -f *.o  hw7 hw8
 stat:
 	wc *.h *.cpp

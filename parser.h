@@ -11,7 +11,7 @@ using std::string;
 #include "list.h"
 #include "node.h"
 
-#include "utParser.h"
+// #include "utParser.h"
 
 class Parser{
 public:
@@ -40,15 +40,15 @@ public:
     return nullptr;
   }
 
-void matchings(){
+void buildExpression(){
   createTerms();
   Node *commaLeft=0;
   Node *commaRight=0;
+  rootTree =  0;
   if(symtable2.size()==1)
   rootTree = new Node(EQUALITY,0,0,0);
   else
   {
-    rootTree =  0;
     for(int i = 1 ; i <symtable2.size() ; i++)
     {
       
@@ -81,7 +81,6 @@ void matchings(){
      
   }
    findTerm(rootTree);
-  
 }
 Node *findLeft(Node *l)
 {
@@ -96,15 +95,16 @@ Node findTerm(Node *nodetree)
   if(nodetree->payload == EQUALITY)
   {
     nodetree->left = new Node(TERM,termtable[0],0,0);
-    termtable.erase (termtable.begin());
+    termtable.erase(termtable.begin());
     nodetree->right = new Node(TERM,termtable[0],0,0);
-    termtable.erase (termtable.begin());
+    termtable.erase(termtable.begin());
   }
   else if(nodetree->payload == COMMA|| nodetree->payload == SEMICOLON)
   {
-  findTerm(nodetree->left);
-  findTerm(nodetree->right);
+    findTerm(nodetree->left);
+    findTerm(nodetree->right);
   }
+
   
 }
 Node *expressionTree(){
@@ -154,10 +154,11 @@ private:
     {
       _terms.push_back(term);
       while((_currentToken = _scanner.nextToken()) == 260) {
+        if(_currentToken == 260)
         _terms.push_back(createTerm());
+      }
          termtable = _terms;
          termtable2 =_terms;
-      }
     }
   
   }

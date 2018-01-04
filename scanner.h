@@ -15,6 +15,14 @@ public:
   void setInput(string in) {buffer = in;}
 
   int nextToken() {
+      if(currentChar()=='[' ||currentChar()=='(')
+      {
+        gloabalInt2++;
+      }
+      if(currentChar()==']' ||currentChar()==')')
+      {
+        gloabalInt2--;
+      }
       if (skipLeadingWhiteSpace() >= buffer.length())
         return EOS;
       else if (isdigit(currentChar())) {
@@ -35,6 +43,7 @@ public:
       }
       else if (isCon(currentChar()) || currentChar() == ';') {
         string s = extractCon();
+        if(gloabalInt2 == 0)
         processToken<Con>(s);
         return Con;
       } 
@@ -66,7 +75,7 @@ public:
 
   string extractAtom() {
     int posBegin = position();
-    for (;isalnum(buffer[pos]); ++pos);
+    for (;isalnum(buffer[pos]) || currentChar() == '_'; ++pos);
     return buffer.substr(posBegin, pos-posBegin);
   }
 
@@ -105,14 +114,14 @@ private:
     } else {
       if(TokenType ==260)
       {
-      symtable2.push_back(s);
+        symtable2.push_back(s);
       }
       else
       {
-      if(s=="." && currentChar() !='(');
-      else
-      symtable.push_back(pair<string, int>(s,TokenType));
-       _tokenValue = symtable.size()-1; // index to symtable
+        if(s=="." && currentChar() !='(');
+        else
+        symtable.push_back(pair<string, int>(s,TokenType));
+        _tokenValue = symtable.size()-1; // index to symtable
       }
     }
   }
