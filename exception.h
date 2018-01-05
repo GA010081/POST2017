@@ -4,7 +4,7 @@
 #include "parser.h"
 #include "scanner.h"
 
-TEST(Shell, exception_OnlyVariable) {
+TEST_F(Shell, exception_OnlyVariable) {
   Scanner s("X."); // this is our wrong expression.
   Parser p(s);
   try {
@@ -15,7 +15,7 @@ TEST(Shell, exception_OnlyVariable) {
   }
 }
 
-TEST_F(Shell, exceptionMissingPeriodToken) {
+TEST_F(Shell, exceptionMissingPeriodToken2) {
   Scanner s("X=1");
   Parser p(s);
   try {
@@ -26,7 +26,7 @@ TEST_F(Shell, exceptionMissingPeriodToken) {
   }
 }
 
-TEST(Shell, exception_UnexpectedDisjTokenBeforePeriod) {
+TEST_F(Shell, exception_UnexpectedDisjTokenBeforePeriod) {
   Scanner s("X;.");
   Parser p(s);
   try {
@@ -37,7 +37,7 @@ TEST(Shell, exception_UnexpectedDisjTokenBeforePeriod) {
   }
 }
 
-TEST(Shell, exception_UnexpectedConjTokenBeforePeriod1) {
+TEST_F(Shell, exception_UnexpectedConjTokenBeforePeriod1) {
   Scanner s("X,.");
   Parser p(s);
   try {
@@ -48,7 +48,7 @@ TEST(Shell, exception_UnexpectedConjTokenBeforePeriod1) {
   }
 }
 
-TEST(Shell, exception_UnexpectedConjTokenBeforePeriod2) {
+TEST_F(Shell, exception_UnexpectedConjTokenBeforePeriod2) {
   Scanner s("X=1,.");
   Parser p(s);
   try {
@@ -59,7 +59,7 @@ TEST(Shell, exception_UnexpectedConjTokenBeforePeriod2) {
   }
 }
 
-TEST(Shell, exception_UnbalancedOperator1) {
+TEST_F(Shell, exception_UnbalancedOperator1) {
   Scanner s("X = match(tom, marry;)");
   Parser p(s);
   try {
@@ -70,7 +70,7 @@ TEST(Shell, exception_UnbalancedOperator1) {
   }
 }
 
-TEST(Shell, exception_UnbalancedOperator2) {
+TEST_F(Shell, exception_UnbalancedOperator2) {
   Scanner s("X = [tom, marry ;]");
   Parser p(s);
   try {

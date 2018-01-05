@@ -121,7 +121,7 @@ Node *expressionTree(){
       _terms.erase(_terms.begin() + startIndexOfStructArgs, _terms.end());
       return new Struct(structName, args);
     } else {
-      throw string("unexpected token");
+      throw string("Unbalanced operator");
     }
   }
 
@@ -134,7 +134,7 @@ Node *expressionTree(){
       _terms.erase(_terms.begin() + startIndexOfListArgs, _terms.end());
       return new List(args);
     } else {
-      throw string("unexpected token");
+      throw string("Unbalanced operator");
     }
   }
 
@@ -143,10 +143,10 @@ Node *expressionTree(){
   }
 
 private:
-  FRIEND_TEST(ParserTest, createArgs);
-  FRIEND_TEST(ParserTest,ListOfTermsEmpty);
-  FRIEND_TEST(ParserTest,listofTermsTwoNumber);
-  FRIEND_TEST(ParserTest, createTerm_nestedStruct3);
+  // FRIEND_TEST(ParserTest, createArgs);
+  // FRIEND_TEST(ParserTest,ListOfTermsEmpty);
+  // FRIEND_TEST(ParserTest,listofTermsTwoNumber);
+  // FRIEND_TEST(ParserTest, createTerm_nestedStruct3);
 
   void createTerms() {
     Term* term = createTerm();

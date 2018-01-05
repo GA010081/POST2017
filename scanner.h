@@ -15,8 +15,19 @@ public:
   void setInput(string in) {buffer = in;}
 
   int nextToken() {
-      if(buffer[buffer.length()-1]!= '.')
-      throw string("Missing token '.'");
+      if(buffer[buffer.length()-1] == '.' && (buffer[buffer.length()-2] ==';'))
+      throw string("Unexpected ';' before '.'");
+      if(buffer[buffer.length()-1] == '.' && isCon(buffer[buffer.length()-2]))
+      throw string("Unexpected ',' before '.'");
+      std::string str2 ("=");
+      std::size_t found = buffer.find(str2);
+      if(found==std::string::npos)
+      throw string("X does never get assignment");
+      for(int i = 0 ; i <buffer.length();i++)
+      {
+        if(buffer[i]==';' && (buffer [i+1] ==')' || buffer [i+1] ==']'))
+        throw string("Unbalanced operator");
+      }
       if(currentChar()=='[' ||currentChar()=='(')
       {
         gloabalInt2++;
@@ -26,7 +37,11 @@ public:
         gloabalInt2--;
       }
       if (skipLeadingWhiteSpace() >= buffer.length())
+      {
+        if(buffer[buffer.length()-1]!= '.')
+        throw string("Missing token '.'");
         return EOS;
+      }
       else if (isdigit(currentChar())) {
         _tokenValue = extractNumber();
         return NUMBER;
@@ -48,7 +63,7 @@ public:
         if(gloabalInt2 == 0)
         processToken<Con>(s);
         return Con;
-      } 
+      }
       else {
         _tokenValue = NONE;
         return extractChar();

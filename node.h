@@ -124,7 +124,7 @@ public:
         {
           for(int j = i+1 ; j < resultTable2.size();j++)
           {
-            if(resultTable2[i]->value()==resultTable2[j]->value() && resultTable2[i]->symbol()==resultTable2[j]->symbol())
+            if(resultTable2[i]->value()==resultTable2[j]->value() && isupper(resultTable2[i]->symbol()[0])==isupper(resultTable2[j]->symbol()[0]) && resultTable2[j]->symbol()==resultTable2[i]->symbol() )
             {
               resultTable2.erase(resultTable2.begin()+j,resultTable2.begin()+j+1);
             }
