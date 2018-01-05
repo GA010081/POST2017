@@ -1,4 +1,4 @@
-all: hw7 hw8 shell
+all: hw8 shell
 atom.o: atom.cpp atom.h variable.h
 	g++ -std=gnu++0x -c atom.cpp
 list.o:list.cpp list.h
