@@ -15,6 +15,8 @@ public:
   void setInput(string in) {buffer = in;}
 
   int nextToken() {
+      if(buffer[buffer.length()-1]!= '.')
+      throw string("Missing token '.'");
       if(currentChar()=='[' ||currentChar()=='(')
       {
         gloabalInt2++;

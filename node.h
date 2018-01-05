@@ -16,7 +16,7 @@ public:
         if(n->payload == SEMICOLON)
         {
           gloabalInt+=2;
-          return findEqual(n->left,0,gloabalInt) && findEqual(n->right,gloabalInt,termtable2.size()) ;
+          return findEqual(n->left,first,gloabalInt) && findEqual(n->right,gloabalInt,termtable2.size()) ;
         }
         else if(n->payload == EQUALITY)
         {
@@ -38,7 +38,8 @@ public:
           }
           else if(!n->left->term->match(*n->right->term))
           {
-            resultTable.clear();
+        
+            resultTable.clear(); 
             resultTable2.clear();
             resultTable.push_back("false");
           }
@@ -60,13 +61,18 @@ public:
                   if( (termtable2[i]->symbol()==n->left->term->symbol()) &&  !(termtable2[i]->value() == termtable2[i]->symbol()) )
                     if(!termtable2[i]->match(*n->left->term))
                     {
+                       if(first==0)
                        resultTable2.clear();
+                      //  if(resultTable2.size()>0)
+                      //  resultTable2.erase(resultTable2.end());
                        resultTable.push_back("false");
                     }
                   else if((termtable2[i]->symbol()==n->right->term->symbol()) && !(termtable2[i]->value() == termtable2[i]->symbol()) )   
                     if(!termtable2[i]->match(*n->right->term))
                     {
-                       resultTable2.clear();                      
+                       if(first==0)
+                       resultTable2.clear();
+                       resultTable2.erase(resultTable2.end());                      
                        resultTable.push_back("false");
                     }
               }
@@ -109,9 +115,33 @@ public:
   }
   string getResult(){
     string finalString ;
+    bool clear = true;
+    for(int i = 0 ; i<symtable2.size();i++)
+    if(symtable2[i]==";")
+    clear = false;
+    if(resultTable2.size()<4 || clear){
+      for(int i = 0 ; i<resultTable2.size();i++)
+        {
+          for(int j = i+1 ; j < resultTable2.size();j++)
+          {
+            if(resultTable2[i]->value()==resultTable2[j]->value() && resultTable2[i]->symbol()==resultTable2[j]->symbol())
+            {
+              resultTable2.erase(resultTable2.begin()+j,resultTable2.begin()+j+1);
+            }
+          }
+        }
+    }
     for(int i = 0 ; i<resultTable.size(); i ++)
     {
+      if(!resultTable2.empty()){
+        resultTable2.erase(resultTable2.end()-1);
+        resultTable2.erase(resultTable2.end()-1);
+        resultTable2.erase(resultTable2.end()-1);
+        resultTable2.erase(resultTable2.end()-1);     
+      }
+      else
       finalString += resultTable[i];
+      
     }
     for(int i = 0 ; i<resultTable2.size(); i ++)
     {
@@ -120,30 +150,17 @@ public:
      else
      finalString += resultTable2[i]->value();
      if(i>0 && i %2 ==1)
-     finalString+= (i+1 == resultTable2.size())? "":", ";
+     {
+      if(symtable2[0]=="=")symtable2.erase(symtable2.begin());   
+        finalString+= (i+1 == resultTable2.size())? "":symtable2[0]+" ";
+      if(symtable2.size()>0)
+        symtable2.erase(symtable2.begin());
+     }
      else
      finalString+= (i+1 == resultTable2.size())? "":" = ";
     }
-    stringstream ss(finalString);
-    string token;
-    string old="";
-    string newString="";
-    string newString2="";
-    while(std::getline(ss,token, ',')){
-      newString = token;
-      if(newString[0]==' ')
-       newString.erase(newString.begin());
-      if(old != newString)
-      {
-      if(old == "")
-      newString2+= newString;
-      else
-      newString2+=", "+ newString;
-      }
-      old = newString;
-    }
-    newString2+=".";
-    return newString2;
+    finalString+=".";
+    return finalString;
   }
   Operators payload ;
   Term *term;
